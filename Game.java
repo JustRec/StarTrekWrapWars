@@ -4,6 +4,7 @@ import java.util.Random;
 import enigma.core.Enigma;
 
 public class Game {
+	private static char[][] map;
 	public static void main(String[] args) throws InterruptedException {
 		enigma.console.Console cn = Enigma.getConsole("Game", 200, 50, 15);
 		EnigmaWrapper wrapper = new EnigmaWrapper(cn);
@@ -40,16 +41,21 @@ public class Game {
 		}
 
 		wrapper.clearConsole();
-		char[][] map = Mechanics.createMap(Mechanics.createArray("map.txt")); //Create and print the map array 
+		map = Mechanics.createMap(Mechanics.createArray("map.txt")); //Create and print the map array 
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[1].length; j++) {
 				System.out.print(map[i][j]);
 			}
 			System.out.println("");
 		}
-
+		boolean energy2x = false;
 		while(true){ //Main game loop
-			Thread.sleep(1000);
+			Player.addP(map);
+			try {
+				Moment moment = new Moment(map, energy2x);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
