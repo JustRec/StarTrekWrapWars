@@ -9,8 +9,9 @@ public class Game {
 		enigma.console.Console cn = Enigma.getConsole("Game", 200, 50, 15);
 		EnigmaWrapper wrapper = new EnigmaWrapper(cn);
 		Random random = new Random();
+		Color default_foreground = wrapper.hueCube(random.nextInt(180), 255, 165, 0);
 
-		wrapper.consoleColor(wrapper.hueCube(random.nextInt(180), 255, 165, 0), Color.black); //Set a random console color.
+		wrapper.consoleColor(default_foreground, Color.black); //Set a random console color.
 
 		while(true){ //Game start button, will be changed
 			int cn_size_x = cn.getTextWindow().getColumns();
