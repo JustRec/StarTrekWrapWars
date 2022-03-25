@@ -1,8 +1,14 @@
 import java.util.Random;
 import enigma.core.Enigma;
+import java.awt.Color;
 
 public class Player {
-    public static void addP(char[][] map) {
+    private EnigmaWrapper wrapper;
+
+    public Player(EnigmaWrapper wrapper) {
+        this.wrapper = wrapper;
+    }
+    public void addP(char[][] map) {
         Random random = new Random();
         int x = random.nextInt(1, 55);
         int y = random.nextInt(1, 23);
@@ -10,7 +16,7 @@ public class Player {
         while (true)
             if (map[y][x] != '#') {
                 Enigma.getConsole().getTextWindow().setCursorPosition(x, y);
-                System.out.println("P");
+                wrapper.printInColor(Color.orange, Color.blue, "P");
                 map[y][x] = 'P';
                 Enigma.getConsole().getTextWindow().setCursorPosition(x, y);
                 break;

@@ -10,6 +10,7 @@ public class Game {
 		EnigmaWrapper wrapper = new EnigmaWrapper(cn);
 		Random random = new Random();
 		Color default_foreground = wrapper.hueCube(random.nextInt(180), 255, 165, 0);
+		Player player = new Player(wrapper);
 
 		wrapper.consoleColor(default_foreground, Color.black); //Set a random console color.
 
@@ -51,7 +52,7 @@ public class Game {
 		}
 		boolean energy2x = false;
 		while(true){ //Main game loop
-			Player.addP(map);
+			player.addP(map);
 			try {
 				Moment moment = new Moment(map, energy2x, wrapper);
 			} catch (Exception e) {
