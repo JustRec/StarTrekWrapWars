@@ -16,7 +16,7 @@ public class Player {
         while (true)
             if (map[y][x] != '#') {
                 Enigma.getConsole().getTextWindow().setCursorPosition(x, y);
-                wrapper.printInColor(Color.orange, Color.blue, "P");
+                wrapper.printInColor(Color.orange, Color.cyan, "P");
                 map[y][x] = 'P';
                 Enigma.getConsole().getTextWindow().setCursorPosition(x, y);
                 break;

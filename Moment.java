@@ -27,7 +27,7 @@ public class Moment {
                     System.out.println(" "); //delete P
 
                     cn.getTextWindow().setCursorPosition(cursorx - 1, cursory);
-                    wrapper.printInColor(Color.orange, Color.blue, "P");
+                    wrapper.printInColor(Color.orange, Color.cyan, "P");
                     cn.getTextWindow().setCursorPosition(cursorx - 1, cursory);
 
                 }
@@ -41,7 +41,7 @@ public class Moment {
                     System.out.println(" "); //delete P
 
                     cn.getTextWindow().setCursorPosition(cursorx + 1, cursory);
-                    wrapper.printInColor(Color.orange, Color.blue, "P");
+                    wrapper.printInColor(Color.orange, Color.cyan, "P");
                     cn.getTextWindow().setCursorPosition(cursorx + 1, cursory);
                 }
                 if (wrapper.getRkey() == KeyEvent.VK_UP && Player.findPy(map) > 0 && map[Player.findPy(map) - 1][Player.findPx(map)] != '#') {
@@ -54,7 +54,7 @@ public class Moment {
                     System.out.println(" "); //delete P
 
                     cn.getTextWindow().setCursorPosition(cursorx, cursory - 1);
-                    wrapper.printInColor(Color.orange, Color.blue, "P");
+                    wrapper.printInColor(Color.orange, Color.cyan, "P");
                     cn.getTextWindow().setCursorPosition(cursorx, cursory - 1);
                 }
                 if (wrapper.getRkey() == KeyEvent.VK_DOWN && Player.findPy(map) < map.length - 1 && map[Player.findPy(map) + 1][Player.findPx(map)] != '#') {
@@ -67,7 +67,7 @@ public class Moment {
                     System.out.println(" "); //delete P
 
                     cn.getTextWindow().setCursorPosition(cursorx, cursory + 1);
-                    wrapper.printInColor(Color.orange, Color.blue, "P");
+                    wrapper.printInColor(Color.orange, Color.cyan, "P");
                     cn.getTextWindow().setCursorPosition(cursorx, cursory + 1);
                 }
                 if (wrapper.getRkey() == KeyEvent.VK_W) {
