@@ -52,7 +52,7 @@ public class Game {
 		while(true){ //Main game loop
 			Player.addP(map);
 			try {
-				Moment moment = new Moment(map, energy2x);
+				Moment moment = new Moment(map, energy2x, wrapper);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
