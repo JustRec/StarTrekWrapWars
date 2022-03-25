@@ -6,7 +6,8 @@ import enigma.core.Enigma;
 public class Game {
 	private static char[][] map;
 	public static void main(String[] args) throws InterruptedException {
-		enigma.console.Console cn = Enigma.getConsole("Game", 200, 50, 15);
+		final int screenx = 120, screeny = 40, tex = (screenx-45)/2, tey = screeny/2;
+		enigma.console.Console cn = Enigma.getConsole("Game", screenx, screeny, 15);
 		EnigmaWrapper wrapper = new EnigmaWrapper(cn);
 		Random random = new Random();
 		Player player = new Player(wrapper);
@@ -17,23 +18,23 @@ public class Game {
 			int cn_size_x = cn.getTextWindow().getColumns();
 			int cn_size_y = cn.getTextWindow().getRows();
 
-			cn.getTextWindow().setCursorPosition(75, 25);
+			cn.getTextWindow().setCursorPosition(tex, tey);
 			System.out.println("███████╗████████╗ █████╗ ██████╗ ████████╗██╗");
-			cn.getTextWindow().setCursorPosition(75, 26);
+			cn.getTextWindow().setCursorPosition(tex, tey+1);
 			System.out.println("██╔════╝╚══██╔══╝██╔══██╗██╔══██╗╚══██╔══╝██║");
-			cn.getTextWindow().setCursorPosition(75, 27);
+			cn.getTextWindow().setCursorPosition(tex, tey+2);
 			System.out.println("███████╗   ██║   ███████║██████╔╝   ██║   ██║");
-			cn.getTextWindow().setCursorPosition(75, 28);
+			cn.getTextWindow().setCursorPosition(tex, tey+3);
 			System.out.println("╚════██║   ██║   ██╔══██║██╔══██╗   ██║   ╚═╝");
-			cn.getTextWindow().setCursorPosition(75, 29);
+			cn.getTextWindow().setCursorPosition(tex, tey+4);
 			System.out.println("███████║   ██║   ██║  ██║██║  ██║   ██║   ██╗");
-			cn.getTextWindow().setCursorPosition(75, 30);
+			cn.getTextWindow().setCursorPosition(tex, tey+5);
 			System.out.println("╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝");
 			
 			if(wrapper.getMousepr()==1){
-				if(wrapper.getMousex() < 121 && wrapper.getMousex() > 74){
-					if (wrapper.getMousey() < 31){
-						if(wrapper.getMousey() > 24){
+				if(wrapper.getMousex() < tex+45 && wrapper.getMousex() > tex){
+					if (wrapper.getMousey() < tey+5){
+						if(wrapper.getMousey() > tey){
 							break;
 						}						
 					}
