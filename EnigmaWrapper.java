@@ -78,6 +78,14 @@ public class EnigmaWrapper {
 
     }
 
+    public void printInColor(Color default_color, Color color, String text){ //print a single text and reset the color
+        TextAttributes ta = new TextAttributes(color);
+        cn.setTextAttributes(ta);
+        System.out.println(text);
+        ta = new TextAttributes(default_color, Color.black);
+        cn.setTextAttributes(ta);
+    }
+
     
     public Color hueCube(double degree, int r, int g, int b){ //create new rgb values by turning an imaginary color cube
         int[] arr = new int[3];
