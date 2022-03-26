@@ -45,4 +45,7 @@ public class Queue {
     int size() {
         return rear - front + 1;
     }
+    Object[] retElements() {
+    	return elements;
+    }
 }
