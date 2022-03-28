@@ -5,20 +5,21 @@ public class Backpack {
 		private static enigma.console.Console cn = Enigma.getConsole("");
 		private static int scoreIncrease;
 		private static Stack s = new Stack(8);
-		
+		private static int x = Game.screenx-50;
+
 		// Print the backpack to the console
 		static void printBackpack(){
 			for(int y=5;y<15;y++) {
 				if(y<13) {
-					cn.getTextWindow().setCursorPosition(60,y);
+					cn.getTextWindow().setCursorPosition(x,y);
 					System.out.printf("| %c |",(char)s.getItem(12-y));
 				}
 				else if(y<14){
-					cn.getTextWindow().setCursorPosition(60,y);
+					cn.getTextWindow().setCursorPosition(x,y);
 					System.out.println("+---+");
 				}
 				else {
-					cn.getTextWindow().setCursorPosition(60,y);
+					cn.getTextWindow().setCursorPosition(x,y);
 					System.out.println("P.Backpack");
 				}
 			}		
