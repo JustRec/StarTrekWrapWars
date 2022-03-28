@@ -15,11 +15,11 @@ public class Game {
 		Random random = new Random();
 		Player player = new Player(wrapper);
 		wrapper.consoleColor(Color.orange, Color.black); //Set a random console color.
-
+		/*
 		while(true){ //Game start button, will be changed
 			int cn_size_x = cn.getTextWindow().getColumns();
 			int cn_size_y = cn.getTextWindow().getRows();
-
+			
 			cn.getTextWindow().setCursorPosition(tex, tey);
 			System.out.println("███████╗████████╗ █████╗ ██████╗ ████████╗██╗");
 			cn.getTextWindow().setCursorPosition(tex, tey+1);
@@ -43,7 +43,7 @@ public class Game {
 				}
 			}
 		}
-
+		*/
 		wrapper.clearConsole();
 		map = Mechanics.createMap(Mechanics.createArray("map.txt")); //Create and print the map array 
 		for (int i = 0; i < map.length; i++) {
@@ -54,13 +54,17 @@ public class Game {
 		}
 		Backpack.printBackpack();
 		boolean energy2x = false;
+		player.addP(map);
+		ItemQueue.writeItemQueue(cn);
 		while(true){ //Main game loop
-			player.addP(map);
+			//input queue ekle ve movementdaki while kaldirip fonksiyon yap.
+			
 			try {
-				Movement moment = new Movement(map, energy2x, wrapper);
+				Movement movement = new Movement(map, energy2x, wrapper);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 		}
 	}
 }
