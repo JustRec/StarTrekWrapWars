@@ -1,9 +1,10 @@
 import java.util.Random;
+import enigma.console.Console;
 
 public class ItemQueue {
 	private static Random rand = new Random();
 	private static boolean firstrun = true;
-	static Queue iq = new Queue(32000);
+	static CircularQueue iq = new CircularQueue(15);
 	private static int a;
 	
 	private static char randItem() {
@@ -18,18 +19,46 @@ public class ItemQueue {
 		else	    {return '1';}
 	}
 	
-	static char get() {
+	static void fillQueue() {
 		if(firstrun) { 
-			for(int x = 0; x < 15; x++) {
+			for(int x = 0; x < 14; x++) {
 				iq.enqueue(randItem());
 			} 
 			firstrun = false;
 		} 
 		
 		iq.enqueue(randItem());
-		return (char)iq.dequeue();
 	}
-	
+	static char getItem() {
+		return (char) iq.dequeue();
+	}
+	static void writeItemQueue(Console cn) {
+		fillQueue();
+		String queue = "";
+		Queue temp = new Queue(iq.size());
+		for(int x = 0; x < 15; x++) {
+			queue += iq.peek();
+			temp.enqueue(iq.dequeue());
+		}
+		for(int x = 0; x < iq.size(); x++) {
+			iq.enqueue(temp.dequeue());
+		}
+
+		int cursorx = cn.getTextWindow().getCursorX();
+        int cursory = cn.getTextWindow().getCursorY();
+
+		cn.getTextWindow().setCursorPosition(56,0);
+		System.out.print("Input");
+		cn.getTextWindow().setCursorPosition(56,1);
+		System.out.print("<<<<<<<<<<<<<<<");
+		cn.getTextWindow().setCursorPosition(56,2);
+		System.out.print(queue);
+		cn.getTextWindow().setCursorPosition(56,3);
+		System.out.print("<<<<<<<<<<<<<<<");
+
+		cn.getTextWindow().setCursorPosition(cursorx, cursory);
+	}
+
 	static void init() { //tercihe bağlı, InputQueue'nun oyun başlamadan önce oluşturulabilmesi için metod
 		for(int x = 0; x < 15; x++) {iq.enqueue(randItem());}
 		firstrun = false;
