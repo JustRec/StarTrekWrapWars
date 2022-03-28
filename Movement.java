@@ -2,14 +2,14 @@ import enigma.core.Enigma;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 
-public class Moment {
+public class Movement {
     public enigma.console.Console cn = Enigma.getConsole("");
     public EnigmaWrapper wrapper;
 
     public char[][] map;
     public boolean energy2x;
 
-    Moment(char[][] map, boolean energy2x, EnigmaWrapper wrapper) throws Exception { // --- Contructor
+    Movement(char[][] map, boolean energy2x, EnigmaWrapper wrapper) throws Exception { // --- Contructor
         this.map = map;
         this.energy2x = energy2x;
         this.wrapper = wrapper;

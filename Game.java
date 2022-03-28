@@ -54,7 +54,7 @@ public class Game {
 		while(true){ //Main game loop
 			player.addP(map);
 			try {
-				Moment moment = new Moment(map, energy2x, wrapper);
+				Movement moment = new Movement(map, energy2x, wrapper);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
