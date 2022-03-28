@@ -30,7 +30,6 @@ public class Stack {
 	}
 	Object peek() {
 		if(isEmpty()) {
-			System.out.println("Stack is empty");
 			return null;
 		}
 		else
@@ -68,5 +67,10 @@ public class Stack {
 			tempstack.push(temp);
 		}
 		return tempstack;
+	}
+	
+	Object getItem(int a) {
+		if(elements[a] == null){return ' ';}
+		return elements[a];
 	}
 }
