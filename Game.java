@@ -7,18 +7,19 @@ import enigma.core.Enigma;
 public class Game {
 	private static char[][] map;
 	public static int screenx, screeny, tex, tey;
+	
 	public static void main(String[] args) throws InterruptedException {
+		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		screeny = (int)dim.getHeight() / 19; screenx = (int)dim.getWidth() / 10; tex = (int)(screenx-45)/2; tey = screeny/2;
 		enigma.console.Console cn = Enigma.getConsole("Game", screenx, screeny, 15);
 		EnigmaWrapper wrapper = new EnigmaWrapper(cn);
 		Random random = new Random();
-		Player player = new Player(wrapper);
+		Player player = new Player(wrapper); //Player methods
 		wrapper.consoleColor(Color.orange, Color.black); //Set a random console color.
-
-		while(true){ //Game start button, will be changed
-			int cn_size_x = cn.getTextWindow().getColumns();
-			int cn_size_y = cn.getTextWindow().getRows();
+		
+		//Game start button, will be changed
+		while(true){
 
 			cn.getTextWindow().setCursorPosition(tex, tey);
 			System.out.println("███████╗████████╗ █████╗ ██████╗ ████████╗██╗");
@@ -35,15 +36,10 @@ public class Game {
 			
 			if(wrapper.getMousepr()==1){
 				if(wrapper.getMousex() < tex+45 && wrapper.getMousex() > tex){
-					if (wrapper.getMousey() < tey+5){
-						if(wrapper.getMousey() > tey){
-							break;
-						}						
-					}
-				}
+					if (wrapper.getMousey() < tey+5 && wrapper.getMousey() > tey){break;}}}
 			}
-		}
-
+		
+		//init
 		wrapper.clearConsole();
 		map = Mechanics.createMap(Mechanics.createArray("map.txt")); //Create and print the map array 
 		for (int i = 0; i < map.length; i++) {
@@ -54,8 +50,10 @@ public class Game {
 		}
 		Backpack.printBackpack();
 		boolean energy2x = false;
-		while(true){ //Main game loop
-			player.addP(map);
+		
+		//Main game loop
+		while(true){
+			player.addP(map); //Add player to the map
 			try {
 				Movement moment = new Movement(map, energy2x, wrapper);
 			} catch (Exception e) {
