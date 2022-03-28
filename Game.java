@@ -1,17 +1,19 @@
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.Random;
-
 import enigma.core.Enigma;
 
 public class Game {
 	private static char[][] map;
+	public static int screenx, screeny, tex, tey;
 	public static void main(String[] args) throws InterruptedException {
-		final int screenx = 120, screeny = 40, tex = (screenx-45)/2, tey = screeny/2;
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		screeny = (int)dim.getHeight() / 19; screenx = (int)dim.getWidth() / 10; tex = (int)(screenx-45)/2; tey = screeny/2;
 		enigma.console.Console cn = Enigma.getConsole("Game", screenx, screeny, 15);
 		EnigmaWrapper wrapper = new EnigmaWrapper(cn);
 		Random random = new Random();
 		Player player = new Player(wrapper);
-
 		wrapper.consoleColor(Color.orange, Color.black); //Set a random console color.
 
 		while(true){ //Game start button, will be changed
@@ -50,6 +52,7 @@ public class Game {
 			}
 			System.out.println("");
 		}
+		Backpack.printBackpack();
 		boolean energy2x = false;
 		while(true){ //Main game loop
 			player.addP(map);
