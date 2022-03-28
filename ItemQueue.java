@@ -19,7 +19,13 @@ public class ItemQueue {
 	}
 	
 	static char get() {
-		if(firstrun) { for(int x = 0; x < 15; x++) {iq.enqueue(randItem());} firstrun = false;} 
+		if(firstrun) { 
+			for(int x = 0; x < 15; x++) {
+				iq.enqueue(randItem());
+			} 
+			firstrun = false;
+		} 
+		
 		iq.enqueue(randItem());
 		return (char)iq.dequeue();
 	}
