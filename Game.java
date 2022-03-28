@@ -56,7 +56,6 @@ public class Game {
 		player.addP(map);
 		ItemQueue.writeItemQueue(cn);
 		while(true){ //Main game loop
-			//input queue ekle ve movementdaki while kaldirip fonksiyon yap.
 			
 			try {
 				Movement movement = new Movement(map, energy2x, wrapper);
