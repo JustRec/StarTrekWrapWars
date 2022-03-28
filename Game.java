@@ -7,7 +7,9 @@ import enigma.core.Enigma;
 public class Game {
 	private static char[][] map;
 	public static int screenx, screeny, tex, tey;
+
 	public static void main(String[] args) throws InterruptedException {
+		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		screeny = (int)dim.getHeight() / 19; screenx = (int)dim.getWidth() / 10; tex = (int)(screenx-45)/2; tey = screeny/2;
 		enigma.console.Console cn = Enigma.getConsole("Game", screenx, screeny, 15);
@@ -20,6 +22,7 @@ public class Game {
 			int cn_size_x = cn.getTextWindow().getColumns();
 			int cn_size_y = cn.getTextWindow().getRows();
 			
+
 			cn.getTextWindow().setCursorPosition(tex, tey);
 			System.out.println("███████╗████████╗ █████╗ ██████╗ ████████╗██╗");
 			cn.getTextWindow().setCursorPosition(tex, tey+1);
@@ -35,13 +38,9 @@ public class Game {
 			
 			if(wrapper.getMousepr()==1){
 				if(wrapper.getMousex() < tex+45 && wrapper.getMousex() > tex){
-					if (wrapper.getMousey() < tey+5){
-						if(wrapper.getMousey() > tey){
-							break;
-						}						
-					}
-				}
+					if (wrapper.getMousey() < tey+5 && wrapper.getMousey() > tey){break;}}}
 			}
+
 		}
 		*/
 		wrapper.clearConsole();
