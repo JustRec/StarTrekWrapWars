@@ -58,11 +58,15 @@ public class Game {
 		while(true){ //Main game loop
 			
 			try {
-				Movement movement = new Movement(map, energy2x, wrapper);
+				Movement movement = new Movement(map, wrapper);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
+			if (energy2x)
+            Thread.sleep(250);
+        	else
+            Thread.sleep(500);
 		}
 	}
 }
