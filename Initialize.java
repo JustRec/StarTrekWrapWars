@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.util.Random;
 import enigma.core.Enigma;
 
 public class Initialize {
@@ -8,7 +7,6 @@ public class Initialize {
 	public static void main(String[] args) throws InterruptedException {
 		enigma.console.Console cn = Enigma.getConsole("Game", 90, 30, 15);
 		EnigmaWrapper wrapper = new EnigmaWrapper(cn);
-		Random random = new Random();
 		Player player = new Player(wrapper); //Player methods
 		wrapper.consoleColor(Color.orange, Color.black);
 		
@@ -53,29 +51,7 @@ public class Initialize {
 		ItemQueue.writeFirstTimeQueue(map, wrapper);
 		player.addCharacter(map, Color.cyan, "P");
 		ItemQueue.writeItemQueue(cn);
-		float count = 0;
 		
-		/*while(true){ //Main game loop
-			if (count >= 3.0) {
-				count = 0;
-				player.addCharacter(map, ItemQueue.getColor(ItemQueue.getFirstItemWithoutDequeue()), Character.toString(ItemQueue.getItem()));
-				ItemQueue.writeItemQueue(cn);
-			}
-			try {
-				Movement movement = new Movement(map, wrapper);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			if (energy2x) {
-				count += 0.25;
-				Thread.sleep(250);
-			}
-        	else {
-				count += 0.5;
-            	Thread.sleep(500);
-			}
-		*/
 		//Main game
 		try {
 			Game.start(map, energy2x, wrapper);
