@@ -42,7 +42,7 @@ public class ItemQueue {
 			case '1','2','3':
 				return Color.white;
 			case '4','5':
-				return Color.yellow;
+				return Color.magenta;
 			case 'C','=','*':
 				return Color.red;
 		}
