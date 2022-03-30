@@ -14,7 +14,7 @@ public class Movement {
 
         if (wrapper.getKeypr() == 1) { // if keyboard button pressed
             if (wrapper.getRkey() == KeyEvent.VK_LEFT && Player.findPx(map) > 0
-                && map[Player.findPy(map)][Player.findPx(map) - 1] != '#') {
+                && map[Player.findPy(map)][Player.findPx(map) - 1] == ' ') {
                 int cursorx = cn.getTextWindow().getCursorX();
                 int cursory = cn.getTextWindow().getCursorY();
 
@@ -29,7 +29,7 @@ public class Movement {
 
             }
             if (wrapper.getRkey() == KeyEvent.VK_RIGHT && Player.findPx(map) < map[0].length - 1
-                && map[Player.findPy(map)][Player.findPx(map) + 1] != '#') {
+                && map[Player.findPy(map)][Player.findPx(map) + 1] == ' ') {
                 int cursorx = cn.getTextWindow().getCursorX();
                 int cursory = cn.getTextWindow().getCursorY();
 
@@ -43,7 +43,7 @@ public class Movement {
                 cn.getTextWindow().setCursorPosition(cursorx + 1, cursory);
             }
             if (wrapper.getRkey() == KeyEvent.VK_UP && Player.findPy(map) > 0
-                && map[Player.findPy(map) - 1][Player.findPx(map)] != '#') {
+                && map[Player.findPy(map) - 1][Player.findPx(map)] == ' ') {
                 int cursorx = cn.getTextWindow().getCursorX();
                 int cursory = cn.getTextWindow().getCursorY();
 
@@ -57,7 +57,7 @@ public class Movement {
                 cn.getTextWindow().setCursorPosition(cursorx, cursory - 1);
             }
             if (wrapper.getRkey() == KeyEvent.VK_DOWN && Player.findPy(map) < map.length - 1
-                && map[Player.findPy(map) + 1][Player.findPx(map)] != '#') {
+                && map[Player.findPy(map) + 1][Player.findPx(map)] == ' ') {
                 int cursorx = cn.getTextWindow().getCursorX();
                 int cursory = cn.getTextWindow().getCursorY();
 

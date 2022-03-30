@@ -53,20 +53,30 @@ public class Game {
 		}
 		Backpack.printBackpack();
 		boolean energy2x = false;
-		player.addP(map);
+		ItemQueue.writeFirstTimeQueue(map, wrapper);
+		player.addCharacter(map, Color.cyan, "P");
 		ItemQueue.writeItemQueue(cn);
+		float count = 0;
 		while(true){ //Main game loop
-			
+			if (count >= 3.0) {
+				count = 0;
+				player.addCharacter(map, ItemQueue.getColor(ItemQueue.getFirstItemWithoutDequeue()), Character.toString(ItemQueue.getItem()));
+				ItemQueue.writeItemQueue(cn);
+			}
 			try {
 				Movement movement = new Movement(map, wrapper);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
-			if (energy2x)
-            Thread.sleep(250);
-        	else
-            Thread.sleep(500);
+			if (energy2x) {
+				count += 0.25;
+				Thread.sleep(250);
+			}
+        	else {
+				count += 0.5;
+            	Thread.sleep(500);
+			}
 		}
 	}
 }

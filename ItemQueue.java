@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.Random;
 import enigma.console.Console;
 
@@ -25,12 +26,33 @@ public class ItemQueue {
 				iq.enqueue(randItem());
 			} 
 			firstrun = false;
-		} 
-		
+		}
 		iq.enqueue(randItem());
+	}
+	static void writeFirstTimeQueue(char map[][], EnigmaWrapper wrapper) {
+		Player player = new Player(wrapper);
+		for(int x = 0; x < 20; x++) {
+			char temp = randItem();
+			player.addCharacter(map, getColor(temp), Character.toString(temp));
+		}
+	}
+	static Color getColor(char input) {
+		Color color = Color.white;
+		switch (input) {
+			case '1','2','3':
+				return Color.white;
+			case '4','5':
+				return Color.yellow;
+			case 'C','=','*':
+				return Color.red;
+		}
+		return color;
 	}
 	static char getItem() {
 		return (char) iq.dequeue();
+	}
+	static char getFirstItemWithoutDequeue() {
+		return (char) iq.peek();
 	}
 	static void writeItemQueue(Console cn) {
 		fillQueue();
@@ -40,7 +62,7 @@ public class ItemQueue {
 			queue += iq.peek();
 			temp.enqueue(iq.dequeue());
 		}
-		for(int x = 0; x < iq.size(); x++) {
+		for(int x = 0; x < 15; x++) {
 			iq.enqueue(temp.dequeue());
 		}
 

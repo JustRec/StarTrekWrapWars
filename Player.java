@@ -8,17 +8,22 @@ public class Player {
     public Player(EnigmaWrapper wrapper) {
         this.wrapper = wrapper;
     }
-    public void addP(char[][] map) {
+    public void addCharacter(char[][] map, Color color, String str) {
+        int cursorx = Enigma.getConsole().getTextWindow().getCursorX();
+        int cursory = Enigma.getConsole().getTextWindow().getCursorY();
         Random random = new Random();
         int x = random.nextInt(1, 55);
         int y = random.nextInt(1, 23);
 
         while (true)
-            if (map[y][x] != '#') {
+            if (map[y][x] == ' ') {
                 Enigma.getConsole().getTextWindow().setCursorPosition(x, y);
-                wrapper.printInColor(Color.orange, Color.cyan, "P");
-                map[y][x] = 'P';
-                Enigma.getConsole().getTextWindow().setCursorPosition(x, y);
+                wrapper.printInColor(Color.orange, color, str);
+                map[y][x] = str.charAt(0);
+                if (str.equalsIgnoreCase("P"))
+                    Enigma.getConsole().getTextWindow().setCursorPosition(x, y);
+                else
+                    Enigma.getConsole().getTextWindow().setCursorPosition(cursorx, cursory);
                 break;
             }
         else {
