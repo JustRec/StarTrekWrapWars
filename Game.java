@@ -1,82 +1,161 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.util.Random;
 import enigma.core.Enigma;
+import java.awt.Color;
 
 public class Game {
-	private static char[][] map;
-	public static int screenx, screeny, tex, tey;
-
-	public static void main(String[] args) throws InterruptedException {
-		
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		screeny = (int)dim.getHeight() / 19; screenx = (int)dim.getWidth() / 10; tex = (int)(screenx-45)/2; tey = screeny/2;
-		enigma.console.Console cn = Enigma.getConsole("Game", screenx, screeny, 15);
-		EnigmaWrapper wrapper = new EnigmaWrapper(cn);
-		Random random = new Random();
+	private static int prevAction = 1;
+  	private static char[][] map;
+  	private static enigma.console.Console cn = Enigma.getConsole("");
+    private static EnigmaWrapper wrapper;
+	private static int action = 1;
+	private static int keyPattern[] = new int[10]; // 37 -> left, 38 -> up, 39 -> right, 40 -> down, 87 -> W, 65 -> A, 83 -> S, 68 -> D
+	private static double prevTime = System.currentTimeMillis();
+	private static short pr = 0;
+	
+	static void start(char[][] mp, boolean energy2x, EnigmaWrapper wr) throws Exception {
+		wrapper = wr; map = mp; boolean eUsed = false; float timecount = 0;
 		Player player = new Player(wrapper);
-		wrapper.consoleColor(Color.orange, Color.black); //Set a random console color.
-		/*
-		while(true){ //Game start button, will be changed
-			int cn_size_x = cn.getTextWindow().getColumns();
-			int cn_size_y = cn.getTextWindow().getRows();
+		
+        while(true) {
+    		Thread.sleep(50);
 			
-
-			cn.getTextWindow().setCursorPosition(tex, tey);
-			System.out.println("███████╗████████╗ █████╗ ██████╗ ████████╗██╗");
-			cn.getTextWindow().setCursorPosition(tex, tey+1);
-			System.out.println("██╔════╝╚══██╔══╝██╔══██╗██╔══██╗╚══██╔══╝██║");
-			cn.getTextWindow().setCursorPosition(tex, tey+2);
-			System.out.println("███████╗   ██║   ███████║██████╔╝   ██║   ██║");
-			cn.getTextWindow().setCursorPosition(tex, tey+3);
-			System.out.println("╚════██║   ██║   ██╔══██║██╔══██╗   ██║   ╚═╝");
-			cn.getTextWindow().setCursorPosition(tex, tey+4);
-			System.out.println("███████║   ██║   ██║  ██║██║  ██║   ██║   ██╗");
-			cn.getTextWindow().setCursorPosition(tex, tey+5);
-			System.out.println("╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝");
-			
-			if(wrapper.getMousepr()==1){
-				if(wrapper.getMousex() < tex+45 && wrapper.getMousex() > tex){
-					if (wrapper.getMousey() < tey+5 && wrapper.getMousey() > tey){break;}}}
-			}
-
-		}
-		*/
-		wrapper.clearConsole();
-		map = Mechanics.createMap(Mechanics.createArray("map.txt")); //Create and print the map array 
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[1].length; j++) {
-				System.out.print(map[i][j]);
-			}
-			System.out.println("");
-		}
-		Backpack.printBackpack();
-		boolean energy2x = false;
-		ItemQueue.writeFirstTimeQueue(map, wrapper);
-		player.addCharacter(map, Color.cyan, "P");
-		ItemQueue.writeItemQueue(cn);
-		float count = 0;
-		while(true){ //Main game loop
-			if (count >= 3.0) {
-				count = 0;
+        	if(wrapper.getKeypr() == 1) {
+        		keyPattern[pr++] = wrapper.getRkey();
+        	}	
+        	else {
+        		keyPattern[pr++] = 1;
+        	}
+        	wrapper.setKeypr(0);
+        	if (timecount >= 3.0) {
+				timecount = 0;
 				player.addCharacter(map, ItemQueue.getColor(ItemQueue.getFirstItemWithoutDequeue()), Character.toString(ItemQueue.getItem()));
 				ItemQueue.writeItemQueue(cn);
 			}
-			try {
-				Movement movement = new Movement(map, wrapper);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			if (energy2x) {
-				count += 0.25;
-				Thread.sleep(250);
-			}
-        	else {
-				count += 0.5;
-            	Thread.sleep(500);
+        	if(energy2x && System.currentTimeMillis() - prevTime > 250) {
+				timecount += 0.25;
+        		Player();
+        		if(eUsed) {
+        			Bot();
+        			eUsed = false;
+        		}
+        		else {eUsed = true;}
+        	}
+        	else if(System.currentTimeMillis() - prevTime > 500) {
+        		if(eUsed == true) {eUsed = false;}
+				timecount += 0.5;
+        		Player();
+        		Bot();
+        	}
+        }
+    }
+	
+	private static int decPattern(int[] pat) {
+		int a = 9;
+		boolean endsEmpty = false; //pattern ends with empty
+		while(pat[a] == 0) { //remove unassigned numbers from pattern
+			a--;
+		}
+		if(pat[a] == 1) {endsEmpty = true;}
+		while(pat[a] == 1 && a > 0) {
+			a--;
+		}
+		for(int x = a; x > 0; x--) {
+			if(pat[x] != pat[0]) {
+				return pat[a];
 			}
 		}
+		if(endsEmpty && prevAction == pat[a]) {return 1;}
+		else {return pat[a];}
+		
+    }
+	
+	private static void PlayerAction(){
+		
+		
+	            if (action == 37 && Player.findPx(map) > 0
+	                && map[Player.findPy(map)][Player.findPx(map) - 1] != '#') {
+	                int cursorx = cn.getTextWindow().getCursorX();
+	                int cursory = cn.getTextWindow().getCursorY();
+
+	                map[cursory][cursorx] = ' ';
+	                map[cursory][cursorx - 1] = 'P';
+
+	                System.out.println(" "); // delete P
+
+	                cn.getTextWindow().setCursorPosition(cursorx - 1, cursory);
+	                wrapper.printInColor(Color.orange, Color.cyan, "P");
+	                cn.getTextWindow().setCursorPosition(cursorx - 1, cursory);
+
+	            }
+	            if (action == 39 && Player.findPx(map) < map[0].length - 1
+	                && map[Player.findPy(map)][Player.findPx(map) + 1] != '#') {
+	                int cursorx = cn.getTextWindow().getCursorX();
+	                int cursory = cn.getTextWindow().getCursorY();
+
+	                map[cursory][cursorx] = ' ';
+	                map[cursory][cursorx + 1] = 'P';
+
+	                System.out.println(" "); // delete P
+
+	                cn.getTextWindow().setCursorPosition(cursorx + 1, cursory);
+	                wrapper.printInColor(Color.orange, Color.cyan, "P");
+	                cn.getTextWindow().setCursorPosition(cursorx + 1, cursory);
+	            }
+	            if (action == 38 && Player.findPy(map) > 0
+	                && map[Player.findPy(map) - 1][Player.findPx(map)] != '#') {
+	                int cursorx = cn.getTextWindow().getCursorX();
+	                int cursory = cn.getTextWindow().getCursorY();
+
+	                map[cursory][cursorx] = ' ';
+	                map[cursory - 1][cursorx] = 'P';
+
+	                System.out.println(" "); // delete P
+
+	                cn.getTextWindow().setCursorPosition(cursorx, cursory - 1);
+	                wrapper.printInColor(Color.orange, Color.cyan, "P");
+	                cn.getTextWindow().setCursorPosition(cursorx, cursory - 1);
+	            }
+	            if (action == 40 && Player.findPy(map) < map.length - 1
+	                && map[Player.findPy(map) + 1][Player.findPx(map)] != '#') {
+	                int cursorx = cn.getTextWindow().getCursorX();
+	                int cursory = cn.getTextWindow().getCursorY();
+
+	                map[cursory][cursorx] = ' ';
+	                map[cursory + 1][cursorx] = 'P';
+
+	                System.out.println(" "); // delete P
+
+	                cn.getTextWindow().setCursorPosition(cursorx, cursory + 1);
+	                wrapper.printInColor(Color.orange, Color.cyan, "P");
+	                cn.getTextWindow().setCursorPosition(cursorx, cursory + 1);
+	            }
+	            if (action == 87) {
+
+	            }
+	            if (action == 83) {
+
+	            }
+	            if (action == 65) {
+
+	            }
+	            if (action == 68) {
+
+	            }	
+		
 	}
+	
+	private static void Player() {
+		action = decPattern(keyPattern);
+		prevAction = action;      		
+		pr = 0;
+		keyPattern = new int[10];
+		PlayerAction();   		
+		prevTime = System.currentTimeMillis();
+	}
+	
+	private static void Bot() {
+		
+		//Bot hareketleri
+	}
+	
+	
 }

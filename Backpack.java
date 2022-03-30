@@ -5,7 +5,7 @@ public class Backpack {
 		private static enigma.console.Console cn = Enigma.getConsole("");
 		private static int scoreIncrease;
 		private static Stack s = new Stack(8);
-		private static int x = Game.screenx-50;
+		private static int x = 57;
 
 		// Print the backpack to the console
 		static void printBackpack(){
