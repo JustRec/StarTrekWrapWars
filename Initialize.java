@@ -1,22 +1,17 @@
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.Random;
 import enigma.core.Enigma;
 
-public class Game {
+public class Initialize {
 	private static char[][] map;
-	public static int screenx, screeny, tex, tey;
 
 	public static void main(String[] args) throws InterruptedException {
-		
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		screeny = (int)dim.getHeight() / 19; screenx = (int)dim.getWidth() / 10; tex = (int)(screenx-45)/2; tey = screeny/2;
-		enigma.console.Console cn = Enigma.getConsole("Game", screenx, screeny, 15);
+		enigma.console.Console cn = Enigma.getConsole("Game", 90, 30, 15);
 		EnigmaWrapper wrapper = new EnigmaWrapper(cn);
 		Random random = new Random();
-		Player player = new Player(wrapper);
-		wrapper.consoleColor(Color.orange, Color.black); //Set a random console color.
+		Player player = new Player(wrapper); //Player methods
+		wrapper.consoleColor(Color.orange, Color.black);
+		
 		/*
 		while(true){ //Game start button, will be changed
 			int cn_size_x = cn.getTextWindow().getColumns();
@@ -43,6 +38,8 @@ public class Game {
 
 		}
 		*/
+		
+		
 		wrapper.clearConsole();
 		map = Mechanics.createMap(Mechanics.createArray("map.txt")); //Create and print the map array 
 		for (int i = 0; i < map.length; i++) {
@@ -55,18 +52,12 @@ public class Game {
 		boolean energy2x = false;
 		player.addP(map);
 		ItemQueue.writeItemQueue(cn);
-		while(true){ //Main game loop
-			
-			try {
-				Movement movement = new Movement(map, wrapper);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			if (energy2x)
-            Thread.sleep(250);
-        	else
-            Thread.sleep(500);
+		
+		//Main game
+		try {
+			Game.start(map, energy2x, wrapper);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }
