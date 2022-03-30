@@ -2,18 +2,19 @@ import enigma.core.Enigma;
 import java.awt.Color;
 
 public class Game {
-	static int prevAction = 1;
-    static char[][] map;
-    static enigma.console.Console cn = Enigma.getConsole("");
-    static EnigmaWrapper wrapper;
-	
+	private static int prevAction = 1;
+  	private static char[][] map;
+  	private static enigma.console.Console cn = Enigma.getConsole("");
+    	private static EnigmaWrapper wrapper;
+	private static int action = 1;
+	private static int keyPattern[] = new int[10]; // 37 -> left, 38 -> up, 39 -> right, 40 -> down, 87 -> W, 65 -> A, 83 -> S, 68 -> D
+	private static double prevTime = System.currentTimeMillis();
+	private static short pr = 0;
+
 	
 	static void start(char[][] mp, boolean energy2x, EnigmaWrapper wr) throws Exception {
-		wrapper = wr; map = mp;
-    	int keyPattern[] = new int[10]; // 37 -> left, 38 -> up, 39 -> right, 40 -> down, 87 -> W, 65 -> A, 83 -> S, 68 -> D
-    	double prevTime = System.currentTimeMillis();
-    	short pr = 0; int action;
-    	
+		wrapper = wr; map = mp; boolean eUsed = false;
+		
        while(true) {
        		Thread.sleep(50);
        		
@@ -25,20 +26,25 @@ public class Game {
         	}
         	wrapper.setKeypr(0);
         	
-        	if((energy2x && System.currentTimeMillis() - prevTime > 250) || System.currentTimeMillis() - prevTime > 500) {
-        		action = decPattern(keyPattern);
-        		prevAction = action;      		
-        		pr = 0;
-        		keyPattern = new int[10];
-        		move(action);   		
-        		prevTime = System.currentTimeMillis();
+        	if(energy2x && System.currentTimeMillis() - prevTime > 250) {
+        		Player();
+        		if(eUsed) {
+        			Bot();
+        			eUsed = false;
+        		}
+        		else {eUsed = true;}
+        	}
+        	else if(System.currentTimeMillis() - prevTime > 500) {
+        		if(eUsed == true) {eUsed = false;}
+        		Player();
+        		Bot();
         	}
         	
         }
   
     }
 	
-	static int decPattern(int[] pat) {
+	private static int decPattern(int[] pat) {
 		int a = 9;
 		boolean endsEmpty = false; //pattern ends with empty
 		while(pat[a] == 0) { //remove unassigned numbers from pattern
@@ -58,7 +64,7 @@ public class Game {
 		
     }
 	
-	static void move(int action){
+	private static void PlayerAction(){
 		
 		
 	            if (action == 37 && Player.findPx(map) > 0
@@ -132,4 +138,20 @@ public class Game {
 	            }	
 		
 	}
+	
+	private static void Player() {
+		action = decPattern(keyPattern);
+		prevAction = action;      		
+		pr = 0;
+		keyPattern = new int[10];
+		PlayerAction();   		
+		prevTime = System.currentTimeMillis();
+	}
+	
+	private static void Bot() {
+		
+		//Bot hareketleri
+	}
+	
+	
 }
