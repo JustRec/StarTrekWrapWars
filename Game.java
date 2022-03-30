@@ -72,7 +72,7 @@ public class Game {
 		
 		
 	            if (action == 37 && Player.findPx(map) > 0
-	                && map[Player.findPy(map)][Player.findPx(map) - 1] != '#') {
+	                && map[Player.findPy(map)][Player.findPx(map) - 1] == ' ') {
 	                int cursorx = cn.getTextWindow().getCursorX();
 	                int cursory = cn.getTextWindow().getCursorY();
 
@@ -87,7 +87,7 @@ public class Game {
 
 	            }
 	            if (action == 39 && Player.findPx(map) < map[0].length - 1
-	                && map[Player.findPy(map)][Player.findPx(map) + 1] != '#') {
+	                && map[Player.findPy(map)][Player.findPx(map) + 1] == ' ') {
 	                int cursorx = cn.getTextWindow().getCursorX();
 	                int cursory = cn.getTextWindow().getCursorY();
 
@@ -101,7 +101,7 @@ public class Game {
 	                cn.getTextWindow().setCursorPosition(cursorx + 1, cursory);
 	            }
 	            if (action == 38 && Player.findPy(map) > 0
-	                && map[Player.findPy(map) - 1][Player.findPx(map)] != '#') {
+	                && map[Player.findPy(map) - 1][Player.findPx(map)] == ' ') {
 	                int cursorx = cn.getTextWindow().getCursorX();
 	                int cursory = cn.getTextWindow().getCursorY();
 
@@ -115,7 +115,7 @@ public class Game {
 	                cn.getTextWindow().setCursorPosition(cursorx, cursory - 1);
 	            }
 	            if (action == 40 && Player.findPy(map) < map.length - 1
-	                && map[Player.findPy(map) + 1][Player.findPx(map)] != '#') {
+	                && map[Player.findPy(map) + 1][Player.findPx(map)] == ' ') {
 	                int cursorx = cn.getTextWindow().getCursorX();
 	                int cursory = cn.getTextWindow().getCursorY();
 
