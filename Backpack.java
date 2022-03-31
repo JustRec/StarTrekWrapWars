@@ -3,44 +3,31 @@ import enigma.core.Enigma;
 public class Backpack {
 
 		private static enigma.console.Console cn = Enigma.getConsole("");
-		private static int scoreIncrease;
 		private static Stack s = new Stack(8);
-		private static int x = 57;
-
+		private static int x,y;
 		// Print the backpack to the console
 		static void printBackpack(){
+			x = cn.getTextWindow().getCursorX(); y = cn.getTextWindow().getCursorY();
 			for(int y=5;y<15;y++) {
 				if(y<13) {
-					cn.getTextWindow().setCursorPosition(x,y);
+					cn.getTextWindow().setCursorPosition(57,y);
 					System.out.printf("| %c |",(char)s.getItem(12-y));
 				}
 				else if(y<14){
-					cn.getTextWindow().setCursorPosition(x,y);
+					cn.getTextWindow().setCursorPosition(57,y);
 					System.out.println("+---+");
 				}
 				else {
-					cn.getTextWindow().setCursorPosition(x,y);
+					cn.getTextWindow().setCursorPosition(57,y);
 					System.out.println("P.Backpack");
 				}
-			}		
+			}
+			cn.getTextWindow().setCursorPosition(x, y);
 		}	
 		
 		//Add item to backpack
 		static void takeItem(char item) {
 			if(!s.isFull()) {
-				// Get the score of the number
-				switch (item) {
-					case '1':
-						scoreIncrease+=1;
-					case '2':
-						scoreIncrease+=5;
-					case '3':
-						scoreIncrease+=15;
-					case '4':
-						scoreIncrease+=50;
-					case '5':
-						scoreIncrease+=150;
-					}
 				// Create new ability if two same numbers matched
 				if(s.peek() != null && (char)s.peek() == item) {
 					s.pop();
