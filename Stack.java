@@ -13,8 +13,7 @@ public class Stack {
 		if(isFull()) 
 			System.out.println("Stack overflow");
 		else {
-			top++;
-			elements[top] = data;
+			elements[++top] = data;
 		}
 	}
 	Object pop() {
@@ -24,7 +23,7 @@ public class Stack {
 		}
 		else {
 			Object retData = elements[top];
-			top--;
+			elements[top--] = null;
 			return retData;
 		}
 	}
