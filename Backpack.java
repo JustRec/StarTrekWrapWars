@@ -55,6 +55,10 @@ public class Backpack {
 			if(!s.isEmpty()) {Object ret = s.pop(); printBackpack(); return ret;}
 			return null;
 		}
+		
+		static boolean isFull() {
+			return s.isFull();
+		}
 }
 
 
