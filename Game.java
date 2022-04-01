@@ -71,10 +71,10 @@ public class Game {
 	
 	private static void InitPlayerAction(){
 
-		if (action == 37 && Player.findPx(map) > 0 && retCol(-1,0) != '#') {PlayerAction(-1,0);}
-		if (action == 39 && Player.findPx(map) < map[0].length - 1 && retCol(1,0) != '#') {PlayerAction(1,0);}
-		if (action == 38 && Player.findPy(map) > 0 && retCol(0,-1) != '#') {PlayerAction(0,-1);}
-		if (action == 40 && Player.findPy(map) < map.length - 1 && retCol(0,1) != '#') {PlayerAction(0,1);}
+		if (action == 37 && Player.Px > 0 && retCol(-1,0) != '#') {PlayerAction(-1,0);}
+		if (action == 39 && Player.Px < map[0].length - 1 && retCol(1,0) != '#') {PlayerAction(1,0);}
+		if (action == 38 && Player.Py > 0 && retCol(0,-1) != '#') {PlayerAction(0,-1);}
+		if (action == 40 && Player.Py < map.length - 1 && retCol(0,1) != '#') {PlayerAction(0,1);}
 	
 	}
 	
@@ -93,7 +93,7 @@ public class Game {
 	}
 	
 	private static char retCol(int x, int y) { //return collision on relative locations
-		return map[Player.findPy(map) + y][Player.findPx(map) + x];
+		return map[Player.Py + y][Player.Px + x];
 	}
 	
 	private static void Draw(int x, int y, char c) {
@@ -107,16 +107,15 @@ public class Game {
         cn.getTextWindow().setCursorPosition(cursorx + x, cursory + y);
         wrapper.printInColor(Color.orange, Color.cyan, Character.toString(c));
         cn.getTextWindow().setCursorPosition(cursorx + x, cursory + y);
+        Player.Py += y; Player.Px += x;
 	}
 	
 	private static void PlayerAction(int x, int y) {	
 		char col = retCol(x,y);
-		Draw(x,y,'P');
-
-		switch(col) {
-		case 'C':
-			endGame();
-			break;
+		if(col == 'C') {Draw(x,y,'P'); endGame();}
+		if(!Backpack.isFull()) {
+			Draw(x,y,'P');
+			switch(col) {
 		case '1':
 			Score += 1;
 			printScore();
@@ -147,7 +146,7 @@ public class Game {
 		case '*':
 			Backpack.takeItem('*');
 			break;
-		}
+		}}
 		
 	}
 	
