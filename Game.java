@@ -162,40 +162,51 @@ public class Game {
 			Draw(x,y,'P', true, true);
 			endGame();
 			}
-		
-		if(!Backpack.isFull()) {
-			Draw(x,y,'P', true, true);
+				
 			switch(col) {
 		case '1':
 			Score += 1;
-			if(energy2x < 30.0) {energy2x = 30.0;}
+			Draw(x,y,'P',true,true);
 			break;
 		case '2':
 			Score += 5;
-			Backpack.takeItem('2');
+			if(energy2x < 30.0) {energy2x = 30.0;}
+			Draw(x,y,'P',true,true);
 			break;
 		case '3':
-			Score += 15;
-			Backpack.takeItem('3');
+			if(!Backpack.isFull()) {
+				Score += 15;
+				Backpack.takeItem('3');
+				Draw(x,y,'P',true,true);
+			}
 			break;
 		case '4':
 			Score += 50;
 			energy2x = 240.0;
-			Backpack.takeItem('4');
+			Draw(x,y,'P',true,true);
 			break;
 		case '5':
-			Score += 150;
-			Backpack.takeItem('5');
+			if(!Backpack.isFull()) {
+				Score += 150;
+				Backpack.takeItem('5');
+				Draw(x,y,'P',true,true);
+			}
 			break;
 		case '=':
-			Backpack.takeItem('=');
+			if(!Backpack.isFull()) {
+				Backpack.takeItem('=');
+				Draw(x,y,'P',true,true);
+			}
 			break;
 		case '*':
-			Backpack.takeItem('*');
+			if(!Backpack.isFull()) {
+				Backpack.takeItem('*');
+				Draw(x,y,'P',true,true);
+			}
 			break;
-		}}
-		
-		
+		default:
+			Draw(x,y,'P',true,true);
+		}
 		
 	}
 	
