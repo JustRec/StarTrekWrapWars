@@ -90,10 +90,30 @@ public class Game {
 	
 	private static void InitPlayerAction(){
 
-		if (action == 37 && Player.Px > 0 && retCol(-1,0) != '#') {PlayerMove(-1,0);}
-		if (action == 39 && Player.Px < map[0].length - 1 && retCol(1,0) != '#') {PlayerMove(1,0);}
-		if (action == 38 && Player.Py > 0 && retCol(0,-1) != '#') {PlayerMove(0,-1);}
-		if (action == 40 && Player.Py < map.length - 1 && retCol(0,1) != '#') {PlayerMove(0,1);}
+		if (action == 37 && Player.Px > 0 && retCol(-1,0) != '#') {
+			PlayerMove(-1,0);
+			}
+		if (action == 39 && Player.Px < map[0].length - 1 && retCol(1,0) != '#') {
+			PlayerMove(1,0);
+			}
+		if (action == 38 && Player.Py > 0 && retCol(0,-1) != '#') {
+			PlayerMove(0,-1);
+			}
+		if (action == 40 && Player.Py < map.length - 1 && retCol(0,1) != '#') {
+			PlayerMove(0,1);
+			}
+		if (action == 87 && retCol(0,1) == ' ') {
+			PlayerThrow(0,-1);
+			}
+		if (action == 83 && retCol(0,1) == ' ') {
+			PlayerThrow(0,1);
+			}
+		if (action == 65 && retCol(0,1) == ' ') {
+			PlayerThrow(-1,0);
+			}
+		if (action == 68 && retCol(0,1) == ' ') {
+			PlayerThrow(1,0);
+			}
 	
 	}
 	
@@ -115,27 +135,36 @@ public class Game {
 		return map[Player.Py + y][Player.Px + x];
 	}
 	
-	private static void Draw(int x, int y, char c) {
+	private static void Draw(int x, int y, char c, boolean displace, boolean isPlayer) {
 		
 		int cursorx = cn.getTextWindow().getCursorX();
         int cursory = cn.getTextWindow().getCursorY();
-        
-        map[cursory][cursorx] = ' ';
         map[cursory + y][cursorx + x] = c;
-        System.out.println(" ");
+        if(displace) {
+        	map[cursory][cursorx] = ' ';
+        	System.out.println(" ");
+        	}
         cn.getTextWindow().setCursorPosition(cursorx + x, cursory + y);
         wrapper.printInColor(Color.orange, Color.cyan, Character.toString(c));
-        cn.getTextWindow().setCursorPosition(cursorx + x, cursory + y);
-        Player.Py += y; Player.Px += x;
+        if(!displace) {
+        	cn.getTextWindow().setCursorPosition(cursorx, cursory);
+        }
+        else {
+        	cn.getTextWindow().setCursorPosition(cursorx + x, cursory + y);
+        }
+        if(isPlayer) {Player.Py += y; Player.Px += x;}
 	}
 	
 	private static void PlayerMove(int x, int y) {	
 		char col = retCol(x,y);
 		
-		if(col == 'C') {Draw(x,y,'P'); endGame();}
+		if(col == 'C') {
+			Draw(x,y,'P', true, true);
+			endGame();
+			}
 		
 		if(!Backpack.isFull()) {
-			Draw(x,y,'P');
+			Draw(x,y,'P', true, true);
 			switch(col) {
 		case '1':
 			Score += 1;
@@ -180,5 +209,9 @@ public class Game {
 		cn.getTextWindow().setCursorPosition(57, 15+o);
 		System.out.println(s);
 		cn.getTextWindow().setCursorPosition(x, y);
+	}
+	
+	private static void PlayerThrow(int x, int y) {
+		Draw(x,y,(char)Backpack.removeItem(),false,false);	
 	}
 }
