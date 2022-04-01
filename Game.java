@@ -60,10 +60,12 @@ public class Game {
         	print(7,"kp-> " + keyPattern[1] + "  ");
         	print(8,"kp-> " + keyPattern[2] + "  ");
         	print(9,"kp-> " + keyPattern[3] + "  ");
-        	print(10,"kp-> " + keyPattern[0] + "  ");
-        	print(11,"kp-> " + keyPattern[1] + "  ");
-        	print(12,"kp-> " + keyPattern[2] + "  ");
-        	print(13,"kp-> " + keyPattern[3] + "  ");
+        	print(10,"kp-> " + keyPattern[4] + "  ");
+        	print(11,"kp-> " + keyPattern[5] + "  ");
+        	print(12,"kp-> " + keyPattern[6] + "  ");
+        	print(13,"kp-> " + keyPattern[7] + "  ");
+        	print(14,"kp-> " + keyPattern[8] + "  ");
+        	print(15,"kp-> " + keyPattern[9] + "  ");
         	}
         }
     }
