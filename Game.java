@@ -10,13 +10,16 @@ public class Game {
 	private static int keyPattern[] = new int[10]; // 37 -> left, 38 -> up, 39 -> right, 40 -> down, 87 -> W, 65 -> A, 83 -> S, 68 -> D
 	private static double prevTime = System.currentTimeMillis();
 	private static short pr = 0;
+	private static double energy2x = 0;
 	public static int Score = 0;
+	public static double Time = 0;
+	private static boolean game = true;
 	
-	static void start(char[][] mp, boolean energy2x, EnigmaWrapper wr) throws Exception {
+	static void start(char[][] mp, EnigmaWrapper wr) throws Exception {
 		wrapper = wr; map = mp; boolean eUsed = false; float timecount = 0;
 		Player player = new Player(wrapper);
 
-        while(true) { //-- Game loop --
+        while(game) { //-- Game loop --
     		Thread.sleep(50);
 			
         	if(wrapper.getKeypr() == 1) {
@@ -31,8 +34,9 @@ public class Game {
 				player.addCharacter(map, ItemQueue.getColor(ItemQueue.getFirstItemWithoutDequeue()), Character.toString(ItemQueue.getItem()));
 				ItemQueue.writeItemQueue(cn);
 			}
-        	if(energy2x && System.currentTimeMillis() - prevTime > 250) {
-				timecount += 0.25;
+        	if(energy2x != 0 && System.currentTimeMillis() - prevTime > 250) {
+				timecount += 0.25; Time += 0.25;
+				energy2x -= 0.25;
         		Player();
         		if(eUsed) {
         			Bot();
@@ -42,10 +46,16 @@ public class Game {
         	}
         	else if(System.currentTimeMillis() - prevTime > 500) {
         		if(eUsed == true) {eUsed = false;}
+        		Time += 0.5;
 				timecount += 0.5;
         		Player();
         		Bot();
         	}
+        	
+        	print(0,String.format("P.Energy: %s     ", Integer.toString((int)energy2x)));        	
+        	print(1,String.format("P.Score: %s    ", Score));
+        	print(5,String.format("Time: %s", Integer.toString((int)Time)));
+
         }
     }
 	
@@ -112,33 +122,32 @@ public class Game {
 	
 	private static void PlayerAction(int x, int y) {	
 		char col = retCol(x,y);
+		
 		if(col == 'C') {Draw(x,y,'P'); endGame();}
+		
 		if(!Backpack.isFull()) {
 			Draw(x,y,'P');
 			switch(col) {
 		case '1':
 			Score += 1;
-			printScore();
+			if(energy2x < 30.0) {energy2x = 30.0;}
 			break;
 		case '2':
 			Score += 5;
 			Backpack.takeItem('2');
-			printScore();
 			break;
 		case '3':
 			Score += 15;
 			Backpack.takeItem('3');
-			printScore();
 			break;
 		case '4':
 			Score += 50;
+			energy2x = 240.0;
 			Backpack.takeItem('4');
-			printScore();
 			break;
 		case '5':
 			Score += 150;
 			Backpack.takeItem('5');
-			printScore();
 			break;
 		case '=':
 			Backpack.takeItem('=');
@@ -148,16 +157,19 @@ public class Game {
 			break;
 		}}
 		
+		
+		
 	}
 	
 	private static void endGame() {
-		//
+		print(7, "You Lost");
+		game = false;
 	}
 	
-	private static void printScore() {
+	private static void print(int o, String s) {
 		int x = cn.getTextWindow().getCursorX(), y = cn.getTextWindow().getCursorY();
-		cn.getTextWindow().setCursorPosition(57, 15);
-		System.out.printf("Score: %s", Score);
+		cn.getTextWindow().setCursorPosition(57, 15+o);
+		System.out.println(s);
 		cn.getTextWindow().setCursorPosition(x, y);
 	}
 }
