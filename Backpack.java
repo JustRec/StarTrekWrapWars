@@ -52,12 +52,27 @@ public class Backpack {
 			}
 		
 		static Object removeItem() {
-			if(!s.isEmpty()) {Object ret = s.pop(); printBackpack(); return ret;}
+			if(!s.isEmpty()) {
+				Object ret = s.pop();
+				printBackpack();
+				return ret;
+				}
 			return null;
 		}
 		
 		static boolean isFull() {
 			return s.isFull();
+		}
+		
+		static boolean isEmpty() {
+			return s.isEmpty();
+		}
+		
+		static Object peekItem() {
+			if(!s.isEmpty()) {
+				return s.peek();
+			}
+			return null;
 		}
 }
 
