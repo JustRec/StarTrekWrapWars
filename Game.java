@@ -212,6 +212,12 @@ public class Game {
 	}
 	
 	private static void PlayerThrow(int x, int y) {
-		Draw(x,y,(char)Backpack.removeItem(),false,false);	
+		
+		if(!Backpack.isEmpty()) {
+			char c = (char)Backpack.peekItem();
+			if(c == '=' || c == '*') {
+				Draw(x,y,(char)Backpack.removeItem(),false,false);	
+			}
+		}
 	}
 }
