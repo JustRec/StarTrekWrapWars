@@ -14,7 +14,7 @@ public class Game {
 	public static int Score = 0;
 	public static double Time = 0;
 	private static boolean game = true;
-	
+	private static boolean debug = false;
 	static void start(char[][] mp, EnigmaWrapper wr) throws Exception {
 		wrapper = wr; map = mp; boolean eUsed = false; float timecount = 0;
 		Player player = new Player(wrapper);
@@ -55,7 +55,16 @@ public class Game {
         	print(0,String.format("P.Energy: %s     ", Integer.toString((int)energy2x)));        	
         	print(1,String.format("P.Score: %s    ", Score));
         	print(5,String.format("Time: %s", Integer.toString((int)Time)));
-
+        	if(debug) {
+        	print(6,"kp-> " + keyPattern[0] + "  ");
+        	print(7,"kp-> " + keyPattern[1] + "  ");
+        	print(8,"kp-> " + keyPattern[2] + "  ");
+        	print(9,"kp-> " + keyPattern[3] + "  ");
+        	print(10,"kp-> " + keyPattern[0] + "  ");
+        	print(11,"kp-> " + keyPattern[1] + "  ");
+        	print(12,"kp-> " + keyPattern[2] + "  ");
+        	print(13,"kp-> " + keyPattern[3] + "  ");
+        	}
         }
     }
 	
@@ -81,10 +90,10 @@ public class Game {
 	
 	private static void InitPlayerAction(){
 
-		if (action == 37 && Player.Px > 0 && retCol(-1,0) != '#') {PlayerAction(-1,0);}
-		if (action == 39 && Player.Px < map[0].length - 1 && retCol(1,0) != '#') {PlayerAction(1,0);}
-		if (action == 38 && Player.Py > 0 && retCol(0,-1) != '#') {PlayerAction(0,-1);}
-		if (action == 40 && Player.Py < map.length - 1 && retCol(0,1) != '#') {PlayerAction(0,1);}
+		if (action == 37 && Player.Px > 0 && retCol(-1,0) != '#') {PlayerMove(-1,0);}
+		if (action == 39 && Player.Px < map[0].length - 1 && retCol(1,0) != '#') {PlayerMove(1,0);}
+		if (action == 38 && Player.Py > 0 && retCol(0,-1) != '#') {PlayerMove(0,-1);}
+		if (action == 40 && Player.Py < map.length - 1 && retCol(0,1) != '#') {PlayerMove(0,1);}
 	
 	}
 	
@@ -120,7 +129,7 @@ public class Game {
         Player.Py += y; Player.Px += x;
 	}
 	
-	private static void PlayerAction(int x, int y) {	
+	private static void PlayerMove(int x, int y) {	
 		char col = retCol(x,y);
 		
 		if(col == 'C') {Draw(x,y,'P'); endGame();}
