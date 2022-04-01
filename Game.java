@@ -14,7 +14,7 @@ public class Game {
 	public static int Score = 0;
 	public static double Time = 0;
 	private static boolean game = true;
-	private static boolean debug = false;
+	private static boolean debug = true;
 	static void start(char[][] mp, EnigmaWrapper wr) throws Exception {
 		wrapper = wr; map = mp; boolean eUsed = false; float timecount = 0;
 		Player player = new Player(wrapper);
@@ -56,16 +56,12 @@ public class Game {
         	print(1,String.format("P.Score: %s    ", Score));
         	print(5,String.format("Time: %s", Integer.toString((int)Time)));
         	if(debug) {
-        	print(6,"kp-> " + keyPattern[0] + "  ");
-        	print(7,"kp-> " + keyPattern[1] + "  ");
-        	print(8,"kp-> " + keyPattern[2] + "  ");
-        	print(9,"kp-> " + keyPattern[3] + "  ");
-        	print(10,"kp-> " + keyPattern[4] + "  ");
-        	print(11,"kp-> " + keyPattern[5] + "  ");
-        	print(12,"kp-> " + keyPattern[6] + "  ");
-        	print(13,"kp-> " + keyPattern[7] + "  ");
-        	print(14,"kp-> " + keyPattern[8] + "  ");
-        	print(15,"kp-> " + keyPattern[9] + "  ");
+        	print(6,"kp-> " + keyPattern[0] + " kp->" + keyPattern[5] + "  ");
+        	print(7,"kp-> " + keyPattern[1] + " kp->" + keyPattern[6] + "  ");
+        	print(8,"kp-> " + keyPattern[2] + " kp->" + keyPattern[7] + "  ");
+        	print(9,"kp-> " + keyPattern[3] + " kp->" + keyPattern[8] + "  ");
+        	print(10,"kp-> " + keyPattern[4] + " kp->" + keyPattern[9] + "  ");
+        
         	}
         }
     }
