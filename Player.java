@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class Player {
     private EnigmaWrapper wrapper;
-
+    public static int Px, Py;
     public Player(EnigmaWrapper wrapper) {
         this.wrapper = wrapper;
     }
@@ -20,10 +20,13 @@ public class Player {
                 Enigma.getConsole().getTextWindow().setCursorPosition(x, y);
                 wrapper.printInColor(Color.orange, color, str);
                 map[y][x] = str.charAt(0);
-                if (str.equalsIgnoreCase("P"))
+                if (str.equalsIgnoreCase("P")) {
                     Enigma.getConsole().getTextWindow().setCursorPosition(x, y);
-                else
+                    Px = x; Py = y;
+                	}
+                else {
                     Enigma.getConsole().getTextWindow().setCursorPosition(cursorx, cursory);
+                    }
                 break;
             }
         else {
