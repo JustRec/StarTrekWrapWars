@@ -29,7 +29,7 @@ public class Backpack {
 		static void takeItem(char item) {
 			if(!s.isFull()) {
 				// Create new ability if two same numbers matched
-				if(s.peek() != null && (char)s.peek() == item) {
+				if(s.peek() != null && (char)s.peek() != '=' && (char)s.peek() != '*' && (char)s.peek() == item) {
 					s.pop();
 					switch(item) {
 						case '2':
