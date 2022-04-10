@@ -192,9 +192,17 @@ public class Game {
 			}
 			break;
 		case '=': //duzeltilecek burasi 
+			if(!Backpack.isFull()) {
+				Backpack.takeItem('=');
+				Draw(x,y,'P',true,true);
+			}
 			Draw(x,y,'P',true,true);
 			break;
 		case '*': //duzeltilecek 
+			if(!Backpack.isFull()) {
+				Backpack.takeItem('*');
+				Draw(x,y,'P',true,true);
+			}
 			Draw(x,y,'P',true,true);
 			break;
 		default:
@@ -218,7 +226,11 @@ public class Game {
 	private static void PlayerThrow(int x, int y) {
 		
 		if(!Backpack.isEmpty()) {
+			if(Backpack.peekItem().toString().charAt(0)=='='||Backpack.peekItem().toString().charAt(0)=='*')
 			Draw(x,y,(char)Backpack.removeItem(),false,false);
+			else {
+				Backpack.removeItem();
+			}
 		}
 	}
 }
