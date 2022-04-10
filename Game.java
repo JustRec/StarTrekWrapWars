@@ -10,7 +10,7 @@ public class Game {
 	private static int keyPattern[] = new int[10]; // 37 -> left, 38 -> up, 39 -> right, 40 -> down, 87 -> W, 65 -> A, 83 -> S, 68 -> D
 	private static double prevTime = System.currentTimeMillis();
 	private static short pr = 0;
-	private static double energy2x = 0;
+	public static double energy2x = 0;
 	public static int Score = 0;
 	public static double Time = 0;
 	private static boolean game = true;
@@ -55,14 +55,7 @@ public class Game {
         	print(0,String.format("P.Energy: %s     ", Integer.toString((int)energy2x)));        	
         	print(1,String.format("P.Score: %s    ", Score));
         	print(5,String.format("Time: %s", Integer.toString((int)Time)));
-        	if(debug) {
-        	print(6,"kp-> " + keyPattern[0] + " kp->" + keyPattern[5] + "  ");
-        	print(7,"kp-> " + keyPattern[1] + " kp->" + keyPattern[6] + "  ");
-        	print(8,"kp-> " + keyPattern[2] + " kp->" + keyPattern[7] + "  ");
-        	print(9,"kp-> " + keyPattern[3] + " kp->" + keyPattern[8] + "  ");
-        	print(10,"kp-> " + keyPattern[4] + " kp->" + keyPattern[9] + "  ");
-        
-        	}
+        	
         }
     }
 	
@@ -167,40 +160,42 @@ public class Game {
 			Draw(x,y,'P',true,true);
 			break;
 		case '2':
-			Score += 5;
-			if(energy2x < 30.0) {energy2x = 30.0;}
-			Draw(x,y,'P',true,true);
+			if(!Backpack.isFull()) {
+				Score += 5;
+				energy2x = Backpack.takeItem('2');
+				Draw(x,y,'P',true,true);
+				Backpack.removeNotIdenticalItems();
+			}
 			break;
 		case '3':
 			if(!Backpack.isFull()) {
 				Score += 15;
 				Backpack.takeItem('3');
 				Draw(x,y,'P',true,true);
+				Backpack.removeNotIdenticalItems();
 			}
 			break;
 		case '4':
-			Score += 50;
-			energy2x = 240.0;
-			Draw(x,y,'P',true,true);
+			if(!Backpack.isFull()) {
+				Score += 50;
+				energy2x = Backpack.takeItem('4');
+				Draw(x,y,'P',true,true);
+				Backpack.removeNotIdenticalItems();
+			}
 			break;
 		case '5':
 			if(!Backpack.isFull()) {
 				Score += 150;
 				Backpack.takeItem('5');
 				Draw(x,y,'P',true,true);
+				Backpack.removeNotIdenticalItems();
 			}
 			break;
-		case '=':
-			if(!Backpack.isFull()) {
-				Backpack.takeItem('=');
-				Draw(x,y,'P',true,true);
-			}
+		case '=': //duzeltilecek burasi 
+			Draw(x,y,'P',true,true);
 			break;
-		case '*':
-			if(!Backpack.isFull()) {
-				Backpack.takeItem('*');
-				Draw(x,y,'P',true,true);
-			}
+		case '*': //duzeltilecek 
+			Draw(x,y,'P',true,true);
 			break;
 		default:
 			Draw(x,y,'P',true,true);
@@ -223,10 +218,7 @@ public class Game {
 	private static void PlayerThrow(int x, int y) {
 		
 		if(!Backpack.isEmpty()) {
-			char c = (char)Backpack.peekItem();
-			if(c == '=' || c == '*') {
-				Draw(x,y,(char)Backpack.removeItem(),false,false);	
-			}
+			Draw(x,y,(char)Backpack.removeItem(),false,false);
 		}
 	}
 }

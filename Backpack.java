@@ -5,6 +5,7 @@ public class Backpack {
 		private static enigma.console.Console cn = Enigma.getConsole("");
 		private static Stack s = new Stack(8);
 		private static int x,y;
+		public static double energy2x = Game.energy2x;
 		// Print the backpack to the console
 		static void printBackpack(){
 			x = cn.getTextWindow().getCursorX(); y = cn.getTextWindow().getCursorY();
@@ -26,30 +27,30 @@ public class Backpack {
 		}	
 		
 		//Add item to backpack
-		static void takeItem(char item) {
+		static double takeItem(char item) {
 			if(!s.isFull()) {
 				// Create new ability if two same numbers matched
 				if(s.peek() != null && (char)s.peek() != '=' && (char)s.peek() != '*' && (char)s.peek() == item) {
 					s.pop();
 					switch(item) {
 						case '2':
-							//eng for 30 seconds
-							break;
+							return energy2x += 30;
 						case '3':
 							s.push('=');
 							break;
 						case '4':
-							//eng for 240 seconds
-							break;
+							return energy2x += 240;
 						case '5':
 							s.push('*');
 							break;
-						}}
+					}
+				}
 				// Put new item in the backpack otherwise
 				else if(item != '1') {s.push(item);}
 				printBackpack();
-				}		
 			}
+			return energy2x;	
+		}
 		
 		static Object removeItem() {
 			if(!s.isEmpty()) {
@@ -59,7 +60,20 @@ public class Backpack {
 				}
 			return null;
 		}
-		
+
+		static void removeNotIdenticalItems() {
+			if(s.size() > 1) {
+				Object temp = s.pop();
+				if (s.peek() != temp) {
+					s.pop();
+				}
+				else {
+					s.push(temp);
+				}
+			}
+			printBackpack();
+		}
+
 		static boolean isFull() {
 			return s.isFull();
 		}
