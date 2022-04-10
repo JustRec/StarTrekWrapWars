@@ -64,7 +64,7 @@ public class Backpack {
 		static void removeNotIdenticalItems() {
 			if(s.size() > 1) {
 				Object temp = s.pop();
-				if (s.peek().toString().charAt(0) != '=' && s.peek().toString().charAt(0) != '*' &&s.peek() != temp) {
+				if (s.peek() != temp) {
 					s.pop();
 				}
 				else {
