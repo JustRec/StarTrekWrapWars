@@ -196,14 +196,12 @@ public class Game {
 				Backpack.takeItem('=');
 				Draw(x,y,'P',true,true);
 			}
-			Draw(x,y,'P',true,true);
 			break;
 		case '*': //duzeltilecek 
 			if(!Backpack.isFull()) {
 				Backpack.takeItem('*');
 				Draw(x,y,'P',true,true);
 			}
-			Draw(x,y,'P',true,true);
 			break;
 		default:
 			Draw(x,y,'P',true,true);
