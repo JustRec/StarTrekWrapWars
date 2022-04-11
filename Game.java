@@ -4,8 +4,8 @@ import java.awt.Color;
 public class Game {
 	private static int prevAction = 1;
   	private static char[][] map;
-  	private static enigma.console.Console cn = Enigma.getConsole("");
-    private static EnigmaWrapper wrapper;
+  	public static enigma.console.Console cn = Enigma.getConsole("");
+    public static EnigmaWrapper wrapper;
 	private static int action = 1;
 	private static int keyPattern[] = new int[10]; // 37 -> left, 38 -> up, 39 -> right, 40 -> down, 87 -> W, 65 -> A, 83 -> S, 68 -> D
 	private static double prevTime = System.currentTimeMillis();
@@ -15,6 +15,9 @@ public class Game {
 	public static double Time = 0;
 	private static boolean game = true;
 	private static boolean debug = true;
+	public static int[] new_robot_location = new int[2];
+	private static Robot[] robots = new Robot[50];
+	private static int robot_counter = 0;
 	static void start(char[][] mp, EnigmaWrapper wr) throws Exception {
 		wrapper = wr; map = mp; boolean eUsed = false; float timecount = 0;
 		Player player = new Player(wrapper);
@@ -31,8 +34,15 @@ public class Game {
         	wrapper.setKeypr(0);
         	if (timecount >= 3.0) {
 				timecount = 0;
-				player.addCharacter(map, ItemQueue.getColor(ItemQueue.getFirstItemWithoutDequeue()), Character.toString(ItemQueue.getItem()));
+				char item = ItemQueue.getItem();
+			
+				player.addCharacter(map, ItemQueue.getColor(ItemQueue.getFirstItemWithoutDequeue()),
+						Character.toString(item));
 				ItemQueue.writeItemQueue(cn);
+				if(item == 'C'){
+					robots[robot_counter] = new Robot(map);
+					robot_counter++;
+				}			
 			}
         	if(energy2x != 0 && System.currentTimeMillis() - prevTime > 250) {
 				timecount += 0.25; Time += 0.25;
@@ -120,6 +130,16 @@ public class Game {
 	private static void Bot() {
 		
 		//Bot hareketleri
+		for (int i = 0; i < robots.length; i++) {
+			if(!(robots[i] == null)){
+				if(robots[i].getHasATarget()){
+					robots[i].move();
+				}
+				else{
+					robots[i].pathFinding();
+				}
+			}
+		}
 	}
 	
 	private static char retCol(int x, int y) { //return collision on relative locations
@@ -232,5 +252,13 @@ public class Game {
 				Backpack.removeItem();
 			}
 		}
+	}
+
+	public void setMap(char[][] map) {
+        Game.map = map;
+    }
+
+	public static char[][] getMap(){
+		return Game.map;
 	}
 }

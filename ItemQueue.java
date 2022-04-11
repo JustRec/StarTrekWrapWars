@@ -12,7 +12,7 @@ public class ItemQueue {
 		    a = rand.nextInt(40);
 		if(a == 39) {return '*';}
 		if (a > 36) {return '=';}
-		if (a > 34) {return 'C';}
+		if (a == a) {return 'C';}
 		if (a > 30) {return '5';}
 		if (a > 25) {return '4';}
 		if (a > 19) {return '3';}
