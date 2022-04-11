@@ -191,13 +191,13 @@ public class Game {
 				Backpack.removeNotIdenticalItems();
 			}
 			break;
-		case '=': //duzeltilecek burasi 
+		case '=':
 			if(!Backpack.isFull()) {
 				Backpack.takeItem('=');
 				Draw(x,y,'P',true,true);
 			}
 			break;
-		case '*': //duzeltilecek 
+		case '*':
 			if(!Backpack.isFull()) {
 				Backpack.takeItem('*');
 				Draw(x,y,'P',true,true);
