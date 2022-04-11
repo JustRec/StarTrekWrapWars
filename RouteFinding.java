@@ -23,6 +23,7 @@ public class RouteFinding {
     }
 
     public void plotMaze(int x, int y, int end_x, int end_y){
+
         this.end_x = end_x;
         this.end_y = end_y;
 
@@ -43,6 +44,8 @@ public class RouteFinding {
     
 
     private boolean recursiveRoute(int x, int y){
+        int initial_x = x;
+        int initial_y = y;
         if (x == end_x && y == end_y) return true; //Reaching end
         try{
             if(map[x][y] == '#' || is_crossed[x][y]) return false; //Reaching a wall or an already crossed place
