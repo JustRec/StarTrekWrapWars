@@ -1,5 +1,3 @@
-import java.lang.reflect.Array;
-
 public class RouteFinding {
     private char[][] map;
     private boolean[][] is_crossed;
@@ -47,36 +45,31 @@ public class RouteFinding {
         int initial_x = x;
         int initial_y = y;
         if (x == end_x && y == end_y) return true; //Reaching end
-        try{
-            if(map[x][y] == '#' || is_crossed[x][y]) return false; //Reaching a wall or an already crossed place
-        }
-        catch(ArrayIndexOutOfBoundsException e){
-            System.out.println();
-        }
+        if(map[x][y] == '#' || is_crossed[x][y]) return false; //Reaching a wall or an already crossed place
         
         is_crossed[x][y] = true;
 
         if(y != 0){ //Check if on the left sideee
             if(recursiveRoute(x, y - 1)){
-                route.push(String.valueOf(x) + "." + String.valueOf(y));
+                route.push(String.valueOf(x) + "-" + String.valueOf(y));
                 return true;
             }
         }
         if (y != map[0].length - 1){ //Check if on the right side
             if(recursiveRoute(x, y + 1)){
-                route.push(String.valueOf(x) + "." + String.valueOf(y));
+                route.push(String.valueOf(x) + "-" + String.valueOf(y));
                 return true;
             }
         }
         if (x != 0){ //Check if on the upper side
             if(recursiveRoute(x - 1, y)){
-                route.push(String.valueOf(x) + "." + String.valueOf(y));
+                route.push(String.valueOf(x) + "-" + String.valueOf(y));
                 return true;
             }
         }
         if (x != map.length - 1){ //Check if on the bottom side
             if(recursiveRoute(x + 1, y)){
-                route.push(String.valueOf(x) + "." + String.valueOf(y));
+                route.push(String.valueOf(x) + "-" + String.valueOf(y));
                 return true;
             }
         }

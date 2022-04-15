@@ -13,17 +13,19 @@ public class Robot {
         current_location[1] = Game.new_robot_location[1];
     }
 
-    public void move(){ 
+    public void move(){
         if(!route.isEmpty()){
             char[][] map = Game.getMap();
-            String[] trg = ((String) route.pop()).split(".");
+            String f_route = (String) route.pop();
+            String[] trg = new String[2];
+            trg = f_route.split("-");
 
             map[current_location[0]][current_location[1]] = ' ';
             map[Integer.parseInt(trg[0])][Integer.parseInt(trg[0])] = 'C';
 
             System.out.print(" ");
             Game.cn.getTextWindow().setCursorPosition(Integer.parseInt(trg[0]),Integer.parseInt(trg[1]));
-            System.out.println("C");
+            System.out.print("C");
         }
         else{
             has_a_target = false;
