@@ -35,7 +35,8 @@ public class Game {
 				ItemQueue.writeItemQueue(cn);
 			}
         	if(energy2x != 0 && System.currentTimeMillis() - prevTime > 250) {
-				timecount += 0.25; Time += 0.25;
+				timecount += 0.25;
+				Time += 0.25;
 				energy2x -= 0.25;
         		Player();
         		if(eUsed) {
@@ -43,13 +44,19 @@ public class Game {
         			eUsed = false;
         		}
         		else {eUsed = true;}
+				map = TrapDevices.isTrapped(map);
+				map = TrapDevices.timeForTrap(map, 0.25);
         	}
         	else if(System.currentTimeMillis() - prevTime > 500) {
-        		if(eUsed == true) {eUsed = false;}
+        		if(eUsed == true) {
+					eUsed = false;
+				}
         		Time += 0.5;
 				timecount += 0.5;
         		Player();
         		Bot();
+				map = TrapDevices.isTrapped(map);
+				map = TrapDevices.timeForTrap(map, 0.5);
         	}
         	
         	print(0,String.format("P.Energy: %s     ", Integer.toString((int)energy2x)));        	
