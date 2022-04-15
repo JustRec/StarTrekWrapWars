@@ -93,16 +93,16 @@ public class Game {
 		if (action == 40 && Player.Py < map.length - 1 && retCol(0,1) != '#') {
 			PlayerMove(0,1);
 			}
-		if (action == 87 && retCol(0,1) == ' ') {
+		if (action == 87 && retCol(0,-1) == ' ') {
 			PlayerThrow(0,-1);
 			}
 		if (action == 83 && retCol(0,1) == ' ') {
 			PlayerThrow(0,1);
 			}
-		if (action == 65 && retCol(0,1) == ' ') {
+		if (action == 65 && retCol(-1,0) == ' ') {
 			PlayerThrow(-1,0);
 			}
-		if (action == 68 && retCol(0,1) == ' ') {
+		if (action == 68 && retCol(1,0) == ' ') {
 			PlayerThrow(1,0);
 			}
 	
