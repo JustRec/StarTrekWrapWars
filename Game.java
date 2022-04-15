@@ -146,7 +146,7 @@ public class Game {
 		return map[Player.Py + y][Player.Px + x];
 	}
 	
-	private static void Draw(int x, int y, char c, boolean displace, boolean isPlayer) {
+	public static void Draw(int x, int y, char c, boolean displace, boolean isPlayer) {
 		
 		int cursorx = cn.getTextWindow().getCursorX();
         int cursory = cn.getTextWindow().getCursorY();

@@ -20,12 +20,17 @@ public class Robot {
             String[] trg = new String[2];
             trg = f_route.split("-");
 
+            
             map[current_location[0]][current_location[1]] = ' ';
             map[Integer.parseInt(trg[0])][Integer.parseInt(trg[0])] = 'C';
 
+            Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
             System.out.print(" ");
-            Game.cn.getTextWindow().setCursorPosition(Integer.parseInt(trg[0]),Integer.parseInt(trg[1]));
+            Game.cn.getTextWindow().setCursorPosition(Integer.parseInt(trg[1]),Integer.parseInt(trg[0]));
             System.out.print("C");
+            current_location[0] = Integer.parseInt(trg[0]);
+            current_location[1] = Integer.parseInt(trg[1]);
+            
         }
         else{
             has_a_target = false;

@@ -35,7 +35,6 @@ public class RouteFinding {
         boolean was_route_found = recursiveRoute(x, y);
 
         if(!was_route_found){
-            System.out.println("There is no legal path to the target");
         }
         route.pop();
     }
