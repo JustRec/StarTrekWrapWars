@@ -34,9 +34,6 @@ public class RouteFinding {
 
         boolean was_route_found = recursiveRoute(x, y);
 
-        if(!was_route_found){
-        }
-        route.pop();
     }
     
 
@@ -80,12 +77,4 @@ public class RouteFinding {
     public Stack getRoute() {
         return this.route;
     }
-
-    public static void main(String[] args){
-        char[][] uwu = Mechanics.createMap(Mechanics.createArray("map.txt"));
-        
-        RouteFinding rf = new RouteFinding(uwu);
-        rf.plotMaze(2, 2, 2, 15);
-        System.out.println();
-    }
-}   
+}

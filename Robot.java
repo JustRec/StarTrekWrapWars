@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 public class Robot {
     private boolean is_alive = true;
     private boolean has_a_target = false;
@@ -27,7 +29,7 @@ public class Robot {
             Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
             System.out.print(" ");
             Game.cn.getTextWindow().setCursorPosition(Integer.parseInt(trg[1]),Integer.parseInt(trg[0]));
-            System.out.print("C");
+            Game.wrapper.printInColor(Color.orange, Color.green, "C");
             current_location[0] = Integer.parseInt(trg[0]);
             current_location[1] = Integer.parseInt(trg[1]);
             
