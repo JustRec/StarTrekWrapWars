@@ -54,7 +54,7 @@ public class Initialize {
 		
 		//Main game
 		try {
-			Game.start(map, wrapper);
+			Game.start(map, wrapper, player);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
