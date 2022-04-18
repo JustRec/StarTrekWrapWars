@@ -18,7 +18,7 @@ public class Player {
         while (true)
             if (map[y][x] == ' ') {
                 Enigma.getConsole().getTextWindow().setCursorPosition(x, y);
-                if(str.equals("C")){
+                if(str.equals("4") || str.equals("5") || str.equals("C")){
                     Game.new_robot_location[0] = y;
                     Game.new_robot_location[1] = x;
                 }                
