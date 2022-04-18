@@ -39,8 +39,8 @@ public class Game {
 			
 				player.addCharacter(map, ItemQueue.getColor(ItemQueue.getItem()), Character.toString(item));
 				ItemQueue.writeItemQueue(cn);
-				if(item == 'C'){
-					robots[robot_counter++] = new Robot(map);
+				if(item == '4' || item == '5' || item == 'C'){
+					robots[robot_counter++] = new Robot(map, item);
 				}			
 			}
         	if(energy2x != 0 && System.currentTimeMillis() - prevTime > 250) {
@@ -129,15 +129,15 @@ public class Game {
 	private static void Bot() {
 		
 		//Bot hareketleri
-		for (int i = 0; i < robots.length; i++) {
-			if(!(robots[i] == null)){
-				if(robots[i].getHasATarget()){
-					robots[i].move();
-				}
-				else{
-					robots[i].pathFinding();
-				}
+		int i = 0;
+		while(robots[i] != null) {
+			if(robots[i].getHasATarget()) {
+				robots[i].move();
 			}
+			else {
+				robots[i].pathFinding();
+			}
+			i++;
 		}
 	}
 	
