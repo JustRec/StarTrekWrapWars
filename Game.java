@@ -145,15 +145,20 @@ public class Game {
 		return map[Player.Py + y][Player.Px + x];
 	}
 	
-	public static void Draw(int x, int y, char c) {
-		cn.getTextWindow().setCursorPosition(Player.Px, Player.Py);
-        map[Player.Py + y][Player.Px + x] = c;
-        map[Player.Py][Player.Px] = ' ';
-    	System.out.println(" ");
-        cn.getTextWindow().setCursorPosition(Player.Px + x, Player.Py + y);
-        wrapper.printInColor(Color.orange, Color.cyan, Character.toString(c));
-        cn.getTextWindow().setCursorPosition(Player.Px + x, Player.Py + y);
-        Player.Py += y; Player.Px += x;
+	public static void Draw(int x, int y, char c, boolean displace) {
+		map[Player.Py + y][Player.Px + x] = c;
+		if(displace) {
+	        map[Player.Py][Player.Px] = ' ';
+			cn.getTextWindow().setCursorPosition(Player.Px, Player.Py);
+	    	System.out.println(" ");
+	    	cn.getTextWindow().setCursorPosition(Player.Px + x, Player.Py + y);
+	        wrapper.printInColor(Color.orange, Color.cyan, Character.toString(c));
+	        Player.Py += y; Player.Px += x;
+		}
+		else {
+	        cn.getTextWindow().setCursorPosition(Player.Px + x, Player.Py + y);
+	        wrapper.printInColor(Color.orange, Color.cyan, Character.toString(c));
+		}
 	}
 	
 	private static void PlayerMove(int x, int y) {	
@@ -163,58 +168,50 @@ public class Game {
 			switch(col) {
 		case '1':
 			Score += 1;
-			Draw(x,y,'P');
+			Draw(x,y,'P',true);
 			break;
 		case '2':
-			if(!Backpack.isFull()) {
-				Score += 5;
-				energy2x = Backpack.takeItem('2');
-				Draw(x,y,'P');
-				Backpack.removeNotIdenticalItems();
-			}
+			Score += 5;
+			if(energy2x < 30) {energy2x = 30;}
+			Draw(x,y,'P',true);
 			break;
 		case '3':
 			if(!Backpack.isFull()) {
 				Score += 15;
 				Backpack.takeItem('3');
-				Draw(x,y,'P');
-				Backpack.removeNotIdenticalItems();
+				Draw(x,y,'P',true);
 			}
 			break;
 		case '4':
-			if(!Backpack.isFull()) {
-				Score += 50;
-				energy2x = Backpack.takeItem('4');
-				Draw(x,y,'P');
-				Backpack.removeNotIdenticalItems();
-			}
+			Score += 50;
+			energy2x = 240;
+			Draw(x,y,'P',true);
 			break;
 		case '5':
 			if(!Backpack.isFull()) {
 				Score += 150;
 				Backpack.takeItem('5');
-				Draw(x,y,'P');
-				Backpack.removeNotIdenticalItems();
+				Draw(x,y,'P',true);
 			}
 			break;
 		case '=':
 			if(!Backpack.isFull()) {
 				Backpack.takeItem('=');
-				Draw(x,y,'P');
+				Draw(x,y,'P',true);
 			}
 			break;
 		case '*':
 			if(!Backpack.isFull()) {
 				Backpack.takeItem('*');
-				Draw(x,y,'P');
+				Draw(x,y,'P',true);
 			}
 			break;
 		case 'C':
-			Draw(x,y,'P');
+			Draw(x,y,'P',true);
 			endGame();
 			break;
 		default:
-			Draw(x,y,'P');
+			Draw(x,y,'P',true);
 		}
 		
 	}
@@ -235,7 +232,7 @@ public class Game {
 		//sayılar oyun alanına geri eklenmek yerine silinir
 		if(!Backpack.isEmpty()) {
 			if(Backpack.peekItem().toString().charAt(0)=='='||Backpack.peekItem().toString().charAt(0)=='*')
-			Draw(x,y,(char)Backpack.removeItem());
+			Draw(x,y,(char)Backpack.removeItem(), false);
 			else {
 				Backpack.removeItem();
 			}
