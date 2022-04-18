@@ -254,7 +254,7 @@ public class Game {
 		}
 	}
 
-	public void setMap(char[][] map) {
+	public static void setMap(char[][] map) {
         Game.map = map;
     }
 

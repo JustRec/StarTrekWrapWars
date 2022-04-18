@@ -18,21 +18,27 @@ public class Robot {
     public void move(){
         if(!route.isEmpty()){
             char[][] map = Game.getMap();
-            String f_route = (String) route.pop();
-            String[] trg = new String[2];
-            trg = f_route.split("-");
 
-            
-            map[current_location[0]][current_location[1]] = ' ';
-            map[Integer.parseInt(trg[0])][Integer.parseInt(trg[0])] = 'C';
 
-            Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
-            System.out.print(" ");
-            Game.cn.getTextWindow().setCursorPosition(Integer.parseInt(trg[1]),Integer.parseInt(trg[0]));
-            Game.wrapper.printInColor(Color.orange, Color.green, "C");
-            current_location[0] = Integer.parseInt(trg[0]);
-            current_location[1] = Integer.parseInt(trg[1]);
-            
+
+            String[] trg = ((String) route.peek()).split("-");
+
+            if(map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] == ' '){
+
+                map[current_location[0]][current_location[1]] = ' ';
+                map[Integer.parseInt(trg[0])][Integer.parseInt(trg[0])] = 'C';
+
+                Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
+                System.out.print(" ");
+                Game.cn.getTextWindow().setCursorPosition(Integer.parseInt(trg[1]),Integer.parseInt(trg[0]));
+                Game.wrapper.printInColor(Color.orange, Color.green, "C");
+                map[current_location[0]][current_location[1]] = ' ';
+                current_location[0] = Integer.parseInt(trg[0]);
+                current_location[1] = Integer.parseInt(trg[1]);
+                map[current_location[0]][current_location[1]] = 'C';//TODO: remove excess
+                Game.setMap(map);
+                route.pop();
+            }
         }
         else{
             has_a_target = false;

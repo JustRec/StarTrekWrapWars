@@ -38,6 +38,7 @@ public class RouteFinding {
             System.out.println("There is no legal path" + x + "," +  y + "to " + end_x + "," + end_y );
         }
 
+        route.pop();
         return was_route_found;
 
     }
