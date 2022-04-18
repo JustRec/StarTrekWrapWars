@@ -7,10 +7,11 @@ public class Robot {
     private int[] current_location = new int[2];
     private int[] target = new int[2];
     private static RouteFinding rf;
+    private char type;
 
-
-    public Robot(char[][] map){
-        rf = new RouteFinding(map);
+    public Robot(char[][] map, char c){
+        type = c;
+    	rf = new RouteFinding(map);
         current_location[0] = Game.new_robot_location[0];
         current_location[1] = Game.new_robot_location[1];
     }
@@ -26,16 +27,16 @@ public class Robot {
             if(map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] == ' '){
 
                 map[current_location[0]][current_location[1]] = ' ';
-                map[Integer.parseInt(trg[0])][Integer.parseInt(trg[0])] = 'C';
+                map[Integer.parseInt(trg[0])][Integer.parseInt(trg[0])] = type;
 
                 Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
                 System.out.print(" ");
                 Game.cn.getTextWindow().setCursorPosition(Integer.parseInt(trg[1]),Integer.parseInt(trg[0]));
-                Game.wrapper.printInColor(Color.orange, Color.green, "C");
+                Game.wrapper.printInColor(Color.orange, ItemQueue.getColor(type), Character.toString(type));
                 map[current_location[0]][current_location[1]] = ' ';
                 current_location[0] = Integer.parseInt(trg[0]);
                 current_location[1] = Integer.parseInt(trg[1]);
-                map[current_location[0]][current_location[1]] = 'C';//TODO: remove excess
+                map[current_location[0]][current_location[1]] = type;//TODO: remove excess
                 Game.setMap(map);
                 route.pop();
             }
@@ -75,4 +76,5 @@ public class Robot {
     public void setHasATarget(boolean has_a_target) {
         this.has_a_target = has_a_target;
     }
+    
 }
