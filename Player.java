@@ -19,8 +19,8 @@ public class Player {
             if (map[y][x] == ' ') {
                 Enigma.getConsole().getTextWindow().setCursorPosition(x, y);
                 if(str.equals("C")){
-                    Game.new_robot_location[0] = y - 1;
-                    Game.new_robot_location[1] = x - 1;
+                    Game.new_robot_location[0] = y;
+                    Game.new_robot_location[1] = x;
                 }                
                 wrapper.printInColor(Color.orange, color, str);
                 map[y][x] = str.charAt(0);

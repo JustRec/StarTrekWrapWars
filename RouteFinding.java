@@ -20,7 +20,7 @@ public class RouteFinding {
         }
     }
 
-    public void plotMaze(int x, int y, int end_x, int end_y){
+    public boolean plotMaze(int x, int y, int end_x, int end_y){
 
         this.end_x = end_x;
         this.end_y = end_y;
@@ -33,6 +33,12 @@ public class RouteFinding {
         }
 
         boolean was_route_found = recursiveRoute(x, y);
+
+        if(!was_route_found){
+            System.out.println("There is no legal path" + x + "," +  y + "to " + end_x + "," + end_y );
+        }
+
+        return was_route_found;
 
     }
     

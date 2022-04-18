@@ -43,9 +43,10 @@ public class Robot {
 
     public void pathFinding(){
         targetSelection();
-        rf.plotMaze(current_location[0], current_location[1], target[0], target[1]);
-        route = rf.getRoute();
-        has_a_target = true;
+        if(rf.plotMaze(current_location[0], current_location[1], target[0], target[1])){
+            route = rf.getRoute();
+            has_a_target = true;
+        }       
     }
 
     public void targetSelection(){
