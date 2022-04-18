@@ -27,29 +27,18 @@ public class Backpack {
 		}	
 		
 		//Add item to backpack
-		static double takeItem(char item) {
-			if(!s.isFull()) {
+		static void takeItem(char item) {
+			
 				// Create new ability if two same numbers matched
-				if(s.peek() != null && (char)s.peek() != '=' && (char)s.peek() != '*' && (char)s.peek() == item) {
+				if(s.peek() != null && (char)s.peek() == item && (item == '3' || item == '5')) {
 					s.pop();
-					switch(item) {
-						case '2':
-							return energy2x += 30;
-						case '3':
-							s.push('=');
-							break;
-						case '4':
-							return energy2x += 240;
-						case '5':
-							s.push('*');
-							break;
-					}
+					if(item == '3') {s.push('=');}
+					if(item == '5') {s.push('*');}
 				}
 				// Put new item in the backpack otherwise
-				else if(item != '1') {s.push(item);}
+				else {s.push(item);}
 				printBackpack();
-			}
-			return energy2x;	
+				
 		}
 		
 		static Object removeItem() {
@@ -59,19 +48,6 @@ public class Backpack {
 				return ret;
 				}
 			return null;
-		}
-
-		static void removeNotIdenticalItems() {
-			if(s.size() > 1) {
-				Object temp = s.pop();
-				if (s.peek().toString().charAt(0) != '=' && s.peek().toString().charAt(0) != '*' &&s.peek() != temp) {
-					s.pop();
-				}
-				else {
-					s.push(temp);
-				}
-			}
-			printBackpack();
 		}
 
 		static boolean isFull() {
