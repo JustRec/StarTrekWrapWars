@@ -23,21 +23,24 @@ public class Robot {
 
             String[] trg = ((String) route.peek()).split("-");
 
-            if(map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] == ' '){
+            if(map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] == '='){
 
-                map[current_location[0]][current_location[1]] = ' ';
-                map[Integer.parseInt(trg[0])][Integer.parseInt(trg[0])] = 'C';
+            }
 
+            if(map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] == ' '){ // Check the next target for moving pieces
                 Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
                 System.out.print(" ");
                 Game.cn.getTextWindow().setCursorPosition(Integer.parseInt(trg[1]),Integer.parseInt(trg[0]));
                 Game.wrapper.printInColor(Color.orange, Color.green, "C");
+
+                //Update map[][]
                 map[current_location[0]][current_location[1]] = ' ';
                 current_location[0] = Integer.parseInt(trg[0]);
                 current_location[1] = Integer.parseInt(trg[1]);
-                map[current_location[0]][current_location[1]] = 'C';//TODO: remove excess
+                map[current_location[0]][current_location[1]] = 'C';
                 Game.setMap(map);
-                route.pop();
+
+                route.pop();//Discard the current move
             }
         }
         else{

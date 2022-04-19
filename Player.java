@@ -21,7 +21,13 @@ public class Player {
                 if(str.equals("C")){
                     Game.new_robot_location[0] = y;
                     Game.new_robot_location[1] = x;
-                }                
+                }
+                if(str.equals("=")){
+                    
+                }
+                if(str.equals("*")){
+
+                }
                 wrapper.printInColor(Color.orange, color, str);
                 map[y][x] = str.charAt(0);
                 if (str.equalsIgnoreCase("P")) {
