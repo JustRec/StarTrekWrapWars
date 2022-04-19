@@ -3,6 +3,7 @@ import java.awt.Color;
 public class Robot {
     private boolean is_alive = true;
     private boolean has_a_target = false;
+    private boolean is_pressed_trap = false;
     private Stack route;
     private int[] current_location = new int[2];
     private int[] target = new int[2];
@@ -17,31 +18,41 @@ public class Robot {
     }
 
     public void move(){
-        if(!route.isEmpty()){
+        if(!is_pressed_trap && !route.isEmpty()){
             char[][] map = Game.getMap();
 
 
 
             String[] trg = ((String) route.peek()).split("-");
+            int device_code = Game.devices.isItTrapped(Integer.parseInt(trg[1]), Integer.parseInt(trg[0]));
+            switch (device_code) {
+                case 1: //Trap
+                    is_pressed_trap = true;
+                    Game.devices.removeDevice(Integer.parseInt(trg[1]), Integer.parseInt(trg[0]));
+                    break;
+                case 2: //Warp
+                    is_alive = false;
+                    Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
+                    System.out.print(" ");
+                    map[current_location[0]][current_location[1]] = ' ';
+                    break;
+                case 0:
+                if(map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] != 'C'){ // Check the next target for moving pieces
+                        Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
+                        System.out.print(" ");
+                        Game.cn.getTextWindow().setCursorPosition(Integer.parseInt(trg[1]),Integer.parseInt(trg[0]));
+                        Game.wrapper.printInColor(Color.orange, Color.green, "C");
 
-            if(map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] == '='){
+                        //Update map[][]
+                        map[current_location[0]][current_location[1]] = ' ';
+                        current_location[0] = Integer.parseInt(trg[0]);
+                        current_location[1] = Integer.parseInt(trg[1]);
+                        map[current_location[0]][current_location[1]] = 'C';
+                        Game.setMap(map);
 
-            }
-
-            if(map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] == ' '){ // Check the next target for moving pieces
-                Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
-                System.out.print(" ");
-                Game.cn.getTextWindow().setCursorPosition(Integer.parseInt(trg[1]),Integer.parseInt(trg[0]));
-                Game.wrapper.printInColor(Color.orange, Color.green, "C");
-
-                //Update map[][]
-                map[current_location[0]][current_location[1]] = ' ';
-                current_location[0] = Integer.parseInt(trg[0]);
-                current_location[1] = Integer.parseInt(trg[1]);
-                map[current_location[0]][current_location[1]] = 'C';
-                Game.setMap(map);
-
-                route.pop();//Discard the current move
+                        route.pop();//Discard the current move
+                    }
+                    break;
             }
         }
         else{

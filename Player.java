@@ -23,10 +23,10 @@ public class Player {
                     Game.new_robot_location[1] = x;
                 }
                 if(str.equals("=")){
-                    
+                    Game.devices.addDevice('=', y, x);
                 }
                 if(str.equals("*")){
-
+                    Game.devices.addDevice('*', y, x);
                 }
                 wrapper.printInColor(Color.orange, color, str);
                 map[y][x] = str.charAt(0);

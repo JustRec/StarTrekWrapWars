@@ -10,8 +10,8 @@ public class ItemQueue {
 	
 	private static char randItem() {
 		    a = rand.nextInt(40);
-		if(a == 39) {return '*';}
-		if (a > 36) {return '=';}
+		if(a == 30) {return '*';}
+		if (a > 15) {return '=';}
 		if (a == a) {return 'C';}
 		if (a > 30) {return '5';}
 		if (a > 25) {return '4';}

@@ -17,6 +17,7 @@ public class Game {
 	private static boolean debug = true;
 	public static int[] new_robot_location = new int[2];
 	private static Robot[] robots = new Robot[50];
+	public static Devices devices = new Devices();
 	private static int robot_counter = 0;
 	static void start(char[][] mp, EnigmaWrapper wr, Player player) throws Exception {
 		wrapper = wr; map = mp; boolean eUsed = false; float timecount = 0;
@@ -131,6 +132,9 @@ public class Game {
 		//Bot hareketleri
 		int i = 0;
 		while(robots[i] != null) {
+			if(!robots[i].getIsAlive()){
+				robots[i] = null;
+			}
 			if(robots[i].getHasATarget()) {
 				robots[i].move();
 			}
