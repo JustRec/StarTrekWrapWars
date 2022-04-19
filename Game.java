@@ -18,31 +18,29 @@ public class Game {
 	public static int[] new_robot_location = new int[2];
 	private static Robot[] robots = new Robot[50];
 	private static int robot_counter = 0;
-	
-	static void start(char[][] mp, EnigmaWrapper wr) throws Exception {
+	static void start(char[][] mp, EnigmaWrapper wr, Player player) throws Exception {
 		wrapper = wr; map = mp; boolean eUsed = false; float timecount = 0;
-		Player player = new Player(wrapper);
 
         while(game) { //-- Game loop --
     		Thread.sleep(50);
 			
         	if(wrapper.getKeypr() == 1) {
-        		keyPattern[pr++] = wrapper.getRkey();
+        		keyPattern[pr++] = wrapper.getRkey(); //catch keypress
         	}	
         	else {
         		keyPattern[pr++] = 1;
         	}
+        	
         	wrapper.setKeypr(0);
+        	
         	if (timecount >= 3.0) {
 				timecount = 0;
-				char item = ItemQueue.getItem();
+				char item = ItemQueue.getFirstItemWithoutDequeue();
 			
-				player.addCharacter(map, ItemQueue.getColor(ItemQueue.getFirstItemWithoutDequeue()),
-						Character.toString(item));
+				player.addCharacter(map, ItemQueue.getColor(ItemQueue.getItem()), Character.toString(item));
 				ItemQueue.writeItemQueue(cn);
-				if(item == 'C'){
-					robots[robot_counter] = new Robot(map);
-					robot_counter++;
+				if(item == '4' || item == '5' || item == 'C'){
+					robots[robot_counter++] = new Robot(map, item);
 				}			
 			}
         	if(energy2x != 0 && System.currentTimeMillis() - prevTime > 250) {
@@ -131,15 +129,15 @@ public class Game {
 	private static void Bot() {
 		
 		//Bot hareketleri
-		for (int i = 0; i < robots.length; i++) {
-			if(!(robots[i] == null)){
-				if(robots[i].getHasATarget()){
-					robots[i].move();
-				}
-				else{
-					robots[i].pathFinding();
-				}
+		int i = 0;
+		while(robots[i] != null) {
+			if(robots[i].getHasATarget()) {
+				robots[i].move();
 			}
+			else {
+				robots[i].pathFinding();
+			}
+			i++;
 		}
 	}
 	
@@ -147,87 +145,73 @@ public class Game {
 		return map[Player.Py + y][Player.Px + x];
 	}
 	
-	public static void Draw(int x, int y, char c, boolean displace, boolean isPlayer) {
-		
-		int cursorx = cn.getTextWindow().getCursorX();
-        int cursory = cn.getTextWindow().getCursorY();
-        map[cursory + y][cursorx + x] = c;
-        if(displace) {
-        	map[cursory][cursorx] = ' ';
-        	System.out.println(" ");
-        	}
-        cn.getTextWindow().setCursorPosition(cursorx + x, cursory + y);
-        wrapper.printInColor(Color.orange, Color.cyan, Character.toString(c));
-        if(!displace) {
-        	cn.getTextWindow().setCursorPosition(cursorx, cursory);
-        }
-        else {
-        	cn.getTextWindow().setCursorPosition(cursorx + x, cursory + y);
-        }
-        if(isPlayer) {Player.Py += y; Player.Px += x;}
+	public static void Draw(int x, int y, char c, boolean displace) {
+		map[Player.Py + y][Player.Px + x] = c;
+		if(displace) {
+	        map[Player.Py][Player.Px] = ' ';
+			cn.getTextWindow().setCursorPosition(Player.Px, Player.Py);
+	    	System.out.println(" ");
+	    	cn.getTextWindow().setCursorPosition(Player.Px + x, Player.Py + y);
+	        wrapper.printInColor(Color.orange, Color.cyan, Character.toString(c));
+	        Player.Py += y; Player.Px += x;
+		}
+		else {
+	        cn.getTextWindow().setCursorPosition(Player.Px + x, Player.Py + y);
+	        wrapper.printInColor(Color.orange, Color.cyan, Character.toString(c));
+		}
 	}
 	
 	private static void PlayerMove(int x, int y) {	
 		char col = retCol(x,y);
 		
-		if(col == 'C') {
-			Draw(x,y,'P', true, true);
-			endGame();
-			}
 				
 			switch(col) {
 		case '1':
 			Score += 1;
-			Draw(x,y,'P',true,true);
+			Draw(x,y,'P',true);
 			break;
 		case '2':
-			if(!Backpack.isFull()) {
-				Score += 5;
-				energy2x = Backpack.takeItem('2');
-				Draw(x,y,'P',true,true);
-				Backpack.removeNotIdenticalItems();
-			}
+			Score += 5;
+			if(energy2x < 30) {energy2x = 30;}
+			Draw(x,y,'P',true);
 			break;
 		case '3':
 			if(!Backpack.isFull()) {
 				Score += 15;
 				Backpack.takeItem('3');
-				Draw(x,y,'P',true,true);
-				Backpack.removeNotIdenticalItems();
+				Draw(x,y,'P',true);
 			}
 			break;
 		case '4':
-			if(!Backpack.isFull()) {
-				Score += 50;
-				energy2x = Backpack.takeItem('4');
-				Draw(x,y,'P',true,true);
-				Backpack.removeNotIdenticalItems();
-			}
+			Score += 50;
+			energy2x = 240;
+			Draw(x,y,'P',true);
 			break;
 		case '5':
 			if(!Backpack.isFull()) {
 				Score += 150;
 				Backpack.takeItem('5');
-				Draw(x,y,'P',true,true);
-				Backpack.removeNotIdenticalItems();
+				Draw(x,y,'P',true);
 			}
 			break;
-		case '=': //duzeltilecek burasi 
+		case '=':
 			if(!Backpack.isFull()) {
 				Backpack.takeItem('=');
-				Draw(x,y,'P',true,true);
+				Draw(x,y,'P',true);
 			}
-			Draw(x,y,'P',true,true);
 			break;
-		case '*': //duzeltilecek 
+		case '*':
 			if(!Backpack.isFull()) {
 				Backpack.takeItem('*');
-				Draw(x,y,'P',true,true);
+				Draw(x,y,'P',true);
 			}
-			Draw(x,y,'P',true,true);
+			break;
+		case 'C':
+			Draw(x,y,'P',true);
+			endGame();
 			break;
 		default:
-			Draw(x,y,'P',true,true);
+			Draw(x,y,'P',true);
 		}
 		
 	}
@@ -245,10 +229,10 @@ public class Game {
 	}
 	
 	private static void PlayerThrow(int x, int y) {
-		
+		//sayılar oyun alanına geri eklenmek yerine silinir
 		if(!Backpack.isEmpty()) {
 			if(Backpack.peekItem().toString().charAt(0)=='='||Backpack.peekItem().toString().charAt(0)=='*')
-			Draw(x,y,(char)Backpack.removeItem(),false,false);
+			Draw(x,y,(char)Backpack.removeItem(), false);
 			else {
 				Backpack.removeItem();
 			}

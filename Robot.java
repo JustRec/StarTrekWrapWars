@@ -7,10 +7,11 @@ public class Robot {
     private int[] current_location = new int[2];
     private int[] target = new int[2];
     private static RouteFinding rf;
+    private char type;
 
-
-    public Robot(char[][] map){
-        rf = new RouteFinding(map);
+    public Robot(char[][] map, char c){
+        type = c;
+    	rf = new RouteFinding(map);
         current_location[0] = Game.new_robot_location[0];
         current_location[1] = Game.new_robot_location[1];
     }
@@ -78,4 +79,5 @@ public class Robot {
     public void setHasATarget(boolean has_a_target) {
         this.has_a_target = has_a_target;
     }
+    
 }
