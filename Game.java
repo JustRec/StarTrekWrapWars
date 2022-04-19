@@ -46,6 +46,7 @@ public class Game {
         		else {eUsed = true;}
 				map = TrapDevices.isTrapped(map);
 				map = TrapDevices.timeForTrap(map, 0.25);
+				map = NumberMovement.randomMovement(map, 0.25, wrapper);
         	}
         	else if(System.currentTimeMillis() - prevTime > 500) {
         		if(eUsed == true) {
@@ -57,6 +58,7 @@ public class Game {
         		Bot();
 				map = TrapDevices.isTrapped(map);
 				map = TrapDevices.timeForTrap(map, 0.5);
+				map = NumberMovement.randomMovement(map, 0.5, wrapper);
         	}
         	
         	print(0,String.format("P.Energy: %s     ", Integer.toString((int)energy2x)));        	
