@@ -1,5 +1,3 @@
-import javax.lang.model.util.ElementScanner14;
-
 public class Points {
     private static int player = 0;
     private static int computer = 0;
@@ -63,11 +61,11 @@ public class Points {
 
 
 
-    public int getPlayer() {
+    public static int getPlayer() {
         return player;
     }
 
-    public int getComputer() {
+    public static int getComputer() {
         return computer;
     }
 

@@ -19,6 +19,7 @@ public class Game {
 	private static Robot[] robots = new Robot[50];
 	public static Devices devices = new Devices();
 	public static Points points = new Points();
+	public static Device[] device = new Device[50];
 	private static int robot_counter = 0;
 	static void start(char[][] mp, EnigmaWrapper wr, Player player) throws Exception {
 		wrapper = wr; map = mp; boolean eUsed = false; float timecount = 0;
@@ -61,10 +62,11 @@ public class Game {
 				timecount += 0.5;
         		Player();
         		Bot();
+				updateDevice(); //TODO: change update location
         	}
         	
         	print(0,String.format("P.Energy: %s     ", Integer.toString((int)energy2x)));        	
-        	print(1,String.format("P.Score: %s    ", Score));
+        	print(1,String.format("P.Score: %s    ", Points.getPlayer()));
         	print(5,String.format("Time: %s", Integer.toString((int)Time)));
         	
         }
@@ -145,6 +147,19 @@ public class Game {
 				robots[i].pathFinding();
 			}
 			i++;
+		}
+	}
+
+	private static void updateDevice(){
+		for (int i = 0; i < device.length; i++) {
+			if(device[i] != null){
+				if(device[i].getIs_alive()){
+					device[i].passTime();
+				}
+				else{
+					device[i] = null;
+				}
+			}
 		}
 	}
 	

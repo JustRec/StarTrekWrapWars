@@ -1,8 +1,7 @@
-import java.util.Map;
-
 public class Devices {
 
     private int[][] device_map = new int[50][60];
+    private int device_count = 0;
 
     public Devices(){ //Fill the array with default values
         for (int i = 0; i < device_map.length; i++) {
@@ -17,10 +16,16 @@ public class Devices {
         switch (type) {
             case '=':
                 value = 1; // Assign 1 if device is a trap
+                Game.device[device_count] = new Device(x, y);
+                device_count++;
                 break;
             case '*':
                 value = 2; // Assign 1 if device is a warp
+                Game.device[device_count] = new Device(x, y);
+                device_count++;
                 break;
+                
+                
         }
 
         device_map[x][y] = value; // Assign 1 if device is a trap
