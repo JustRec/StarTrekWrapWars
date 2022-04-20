@@ -34,6 +34,7 @@ public class Robot {
                         Game.wrapper.printInColor(Color.orange, Color.pink, "C");
                         map[current_location[0]][current_location[1]] = ' ';
                         map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] = 'C';
+                        Game.devices.removeDeviceFromMap(Integer.parseInt(trg[0]), Integer.parseInt(trg[1]));
                         break;
                     case 2: //Warp
                         is_alive = false;
@@ -41,6 +42,7 @@ public class Robot {
                         Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
                         System.out.print(" ");
                         map[current_location[0]][current_location[1]] = ' ';
+                        Game.devices.removeDeviceFromMap(Integer.parseInt(trg[0]), Integer.parseInt(trg[1]));
                         break;
                     case 0:
                     if(map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] != 'C'){ // Check the next target for moving pieces

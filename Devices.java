@@ -1,3 +1,5 @@
+import java.util.Map;
+
 public class Devices {
 
     private int[][] device_map = new int[50][60];
@@ -42,6 +44,23 @@ public class Devices {
         device_map[x+1][y-1] = 0;
         device_map[x-1][y+1] = 0;
         device_map[x-1][y-1] = 0;
+    }
+
+    public void removeDeviceFromMap(int x, int y){
+        char[][] map = Game.getMap();
+        boolean flag = false;
+        for (int i = x - 1; i < x + 2; i++) {
+            for (int j = y - 1; j < y + 2; j++) {
+                if(map[i][j] == '=' || map[i][j] == '*'){
+                    map[i][j] = ' ';
+                    Game.setMap(map);
+                    Game.cn.getTextWindow().setCursorPosition(j,i);
+                    System.out.print(" ");
+                    flag = true;
+                    break;
+                }
+            }
+        }
     }
 
     public int isItTrapped(int x, int y){
