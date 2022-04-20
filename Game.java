@@ -47,6 +47,7 @@ public class Game {
         			eUsed = false;
         		}
         		else {eUsed = true;}
+        		printStat();
         	}
         	
         	// !energy2x
@@ -55,6 +56,7 @@ public class Game {
         		Time += 0.5; timecount += 0.5;
         		Player();
         		Bot();
+        		printStat();
         	}
         	
         	//Devices - every 1 second
@@ -63,7 +65,7 @@ public class Game {
         	}
         	
         	//ItemQueue (+Devices) - every 3 seconds
-        	if(timecount == 3) {
+        	else if(timecount == 3) {
         		timecount = 0;
         		
         		updateDevice();
@@ -76,10 +78,6 @@ public class Game {
 				}			
 			}
         	 	
-        	//print stats
-        	print(0,String.format("P.Energy: %s     ", Integer.toString((int)energy2x)));        	
-        	print(1,String.format("P.Score: %s    ", Points.getPlayer()));
-        	print(5,String.format("Time: %s", Integer.toString((int)Time)));
         	
         }
         
@@ -281,5 +279,11 @@ public class Game {
 
 	public static char[][] getMap(){
 		return Game.map;
+	}
+	
+	public static void printStat() {
+    	print(0,String.format("P.Energy: %s     ", Integer.toString((int)energy2x)));        	
+    	print(1,String.format("P.Score: %s    ", Points.getPlayer()));
+    	print(5,String.format("Time: %s", Integer.toString((int)Time)));
 	}
 }
