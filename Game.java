@@ -134,6 +134,8 @@ public class Game {
 		while(robots[i] != null) {
 			if(!robots[i].getIsAlive()){
 				robots[i] = null;
+				i++;
+				continue;
 			}
 			if(robots[i].getHasATarget()) {
 				robots[i].move();

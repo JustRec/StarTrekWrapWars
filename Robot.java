@@ -37,6 +37,7 @@ public class Robot {
                         break;
                     case 2: //Warp
                         is_alive = false;
+                        has_a_target = false;
                         Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
                         System.out.print(" ");
                         map[current_location[0]][current_location[1]] = ' ';
