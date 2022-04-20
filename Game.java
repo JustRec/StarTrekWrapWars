@@ -22,32 +22,24 @@ public class Game {
 	public static Device[] device = new Device[50];
 	private static int robot_counter = 0;
 	static void start(char[][] mp, EnigmaWrapper wr, Player player) throws Exception {
-		wrapper = wr; map = mp; boolean eUsed = false; float timecount = 0;
+		wrapper = wr; map = mp; boolean eUsed = false; double timecount = 0;
 
-        while(game) { //-- Game loop --
+        while(game) { //-- Main loop --
     		Thread.sleep(50);
 			
+    		// catch keypress
         	if(wrapper.getKeypr() == 1) {
-        		keyPattern[pr++] = wrapper.getRkey(); //catch keypress
+        		keyPattern[pr++] = wrapper.getRkey();
         	}	
         	else {
         		keyPattern[pr++] = 1;
         	}
         	
         	wrapper.setKeypr(0);
-        	
-        	if (timecount >= 3.0) {
-				timecount = 0;
-				char item = ItemQueue.getFirstItemWithoutDequeue();
-			
-				player.addCharacter(map, ItemQueue.getColor(ItemQueue.getItem()), Character.toString(item));
-				ItemQueue.writeItemQueue(cn);
-				if(item == '4' || item == '5' || item == 'C'){
-					robots[robot_counter++] = new Robot(map, item);
-				}			
-			}
+        		
+        	//Player and Bot(same as !energy2x) (energy2x)
         	if(energy2x != 0 && System.currentTimeMillis() - prevTime > 250) {
-				timecount += 0.25; Time += 0.25;
+				Time += 0.25; timecount += 0.25;
 				energy2x -= 0.25;
         		Player();
         		if(eUsed) {
@@ -56,20 +48,42 @@ public class Game {
         		}
         		else {eUsed = true;}
         	}
+        	
+        	// !energy2x
         	else if(System.currentTimeMillis() - prevTime > 500) {
         		if(eUsed == true) {eUsed = false;}
-        		Time += 0.5;
-				timecount += 0.5;
+        		Time += 0.5; timecount += 0.5;
         		Player();
         		Bot();
-				updateDevice(); //TODO: change update location
         	}
         	
+        	//Devices - every 1 second
+        	if(timecount == 1 || timecount == 2) {
+        		updateDevice();
+        	}
+        	
+        	//ItemQueue (+Devices) - every 3 seconds
+        	if(timecount == 3) {
+        		timecount = 0;
+        		
+        		updateDevice();
+        		
+				char item = ItemQueue.getFirstItemWithoutDequeue();
+				player.addCharacter(map, ItemQueue.getColor(ItemQueue.getItem()), Character.toString(item));
+				ItemQueue.writeItemQueue(cn);
+				if(item == '4' || item == '5' || item == 'C'){
+					robots[robot_counter++] = new Robot(map, item);
+				}			
+			}
+        	 	
+        	//print stats
         	print(0,String.format("P.Energy: %s     ", Integer.toString((int)energy2x)));        	
         	print(1,String.format("P.Score: %s    ", Points.getPlayer()));
         	print(5,String.format("Time: %s", Integer.toString((int)Time)));
         	
         }
+        
+        
     }
 	
 	private static int decPattern(int[] pat) {
