@@ -48,7 +48,6 @@ public class Devices {
 
     public void removeDeviceFromMap(int x, int y){
         char[][] map = Game.getMap();
-        boolean flag = false;
         for (int i = x - 1; i < x + 2; i++) {
             for (int j = y - 1; j < y + 2; j++) {
                 if(map[i][j] == '=' || map[i][j] == '*'){
@@ -56,7 +55,6 @@ public class Devices {
                     Game.setMap(map);
                     Game.cn.getTextWindow().setCursorPosition(j,i);
                     System.out.print(" ");
-                    flag = true;
                     break;
                 }
             }

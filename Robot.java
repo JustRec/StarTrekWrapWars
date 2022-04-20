@@ -43,6 +43,7 @@ public class Robot {
                         System.out.print(" ");
                         map[current_location[0]][current_location[1]] = ' ';
                         Game.devices.removeDeviceFromMap(Integer.parseInt(trg[0]), Integer.parseInt(trg[1]));
+                        Points.addScore('C', "player");
                         break;
                     case 0:
                     if(map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] != 'C'){ // Check the next target for moving pieces
@@ -58,6 +59,7 @@ public class Robot {
                             map[current_location[0]][current_location[1]] = 'C';
                             Game.setMap(map);
 
+                            Steal();
                             route.pop();//Discard the current move
                         }
                         break;
@@ -70,6 +72,22 @@ public class Robot {
         }
         
         
+    }
+    public void Steal(){
+        char[][] map = Game.getMap();
+        int x = current_location[0];
+        int y = current_location[1];
+
+        for (int i = x - 1; i < x + 2; i++) {
+            for (int j = y - 1; j < y + 2; j++) {
+                if(map[i][j] == 'P'){
+                    for (int k = 0; k < 2; k++) {
+                        char item = (char) Backpack.removeItem();
+                        Points.addScore(item, "computer");
+                    }
+                }
+            }
+        }
     }
 
     public void pathFinding(){

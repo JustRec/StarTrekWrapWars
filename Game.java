@@ -18,6 +18,7 @@ public class Game {
 	public static int[] new_robot_location = new int[2];
 	private static Robot[] robots = new Robot[50];
 	public static Devices devices = new Devices();
+	public static Points points = new Points();
 	private static int robot_counter = 0;
 	static void start(char[][] mp, EnigmaWrapper wr, Player player) throws Exception {
 		wrapper = wr; map = mp; boolean eUsed = false; float timecount = 0;
