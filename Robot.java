@@ -18,47 +18,54 @@ public class Robot {
     }
 
     public void move(){
-        if(!is_pressed_trap && !route.isEmpty()){
-            char[][] map = Game.getMap();
+        if(!is_pressed_trap){
+            if(!route.isEmpty()){
+                char[][] map = Game.getMap();
 
-
-
-            String[] trg = ((String) route.peek()).split("-");
-            int device_code = Game.devices.isItTrapped(Integer.parseInt(trg[1]), Integer.parseInt(trg[0]));
-            switch (device_code) {
-                case 1: //Trap
-                    is_pressed_trap = true;
-                    Game.devices.removeDevice(Integer.parseInt(trg[1]), Integer.parseInt(trg[0]));
-                    break;
-                case 2: //Warp
-                    is_alive = false;
-                    Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
-                    System.out.print(" ");
-                    map[current_location[0]][current_location[1]] = ' ';
-                    break;
-                case 0:
-                if(map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] != 'C'){ // Check the next target for moving pieces
+                String[] trg = ((String) route.peek()).split("-");
+                int device_code = Game.devices.isItTrapped(Integer.parseInt(trg[0]), Integer.parseInt(trg[1]));
+                switch (device_code) {
+                    case 1: //Trap
+                        is_pressed_trap = true;
+                        Game.devices.removeDevice(Integer.parseInt(trg[0]), Integer.parseInt(trg[1]));
                         Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
                         System.out.print(" ");
                         Game.cn.getTextWindow().setCursorPosition(Integer.parseInt(trg[1]),Integer.parseInt(trg[0]));
-                        Game.wrapper.printInColor(Color.orange, Color.green, "C");
-
-                        //Update map[][]
+                        Game.wrapper.printInColor(Color.orange, Color.pink, "C");
                         map[current_location[0]][current_location[1]] = ' ';
-                        current_location[0] = Integer.parseInt(trg[0]);
-                        current_location[1] = Integer.parseInt(trg[1]);
-                        map[current_location[0]][current_location[1]] = 'C';
-                        Game.setMap(map);
+                        map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] = 'C';
+                        break;
+                    case 2: //Warp
+                        is_alive = false;
+                        Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
+                        System.out.print(" ");
+                        map[current_location[0]][current_location[1]] = ' ';
+                        break;
+                    case 0:
+                    if(map[Integer.parseInt(trg[0])][Integer.parseInt(trg[1])] != 'C'){ // Check the next target for moving pieces
+                            Game.cn.getTextWindow().setCursorPosition(current_location[1], current_location[0]);
+                            System.out.print(" ");
+                            Game.cn.getTextWindow().setCursorPosition(Integer.parseInt(trg[1]),Integer.parseInt(trg[0]));
+                            Game.wrapper.printInColor(Color.orange, Color.green, "C");
 
-                        route.pop();//Discard the current move
-                    }
-                    break;
+                            //Update map[][]
+                            map[current_location[0]][current_location[1]] = ' ';
+                            current_location[0] = Integer.parseInt(trg[0]);
+                            current_location[1] = Integer.parseInt(trg[1]);
+                            map[current_location[0]][current_location[1]] = 'C';
+                            Game.setMap(map);
+
+                            route.pop();//Discard the current move
+                        }
+                        break;
+                }
+            }
+            else{
+                has_a_target = false;
+                pathFinding();
             }
         }
-        else{
-            has_a_target = false;
-            pathFinding();
-        }
+        
         
     }
 
