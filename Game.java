@@ -14,7 +14,6 @@ public class Game {
 	public static int Score = 0;
 	public static double Time = 0;
 	private static boolean game = true;
-	private static boolean debug = true;
 	private static boolean is_updated = false;
 	public static int[] new_robot_location = new int[2];
 	private static Robot[] robots = new Robot[50];
@@ -24,6 +23,9 @@ public class Game {
 	private static int robot_counter = 0;
 	static void start(char[][] mp, EnigmaWrapper wr, Player player) throws Exception {
 		wrapper = wr; map = mp; boolean eUsed = false; double timecount = 0;
+		
+		//place number of objects at the start
+		ItemQueue.writeFirstTimeQueue(map, wrapper, player, robots, robot_counter);
 
         while(game) { //-- Main loop --
     		Thread.sleep(50);
