@@ -7,8 +7,8 @@ public class Game {
 	public static enigma.console.Console cn = Enigma.getConsole("");
 	public static EnigmaWrapper wrapper;
 	private static int action = 1;
-	private static int keyPattern[] = new int[10]; // 37 -> left, 38 -> up, 39 -> right, 40 -> down, 87 -> W, 65 -> A,
-													// 83 -> S, 68 -> D
+	public static int playerLife=5;
+	private static int keyPattern[] = new int[10]; // 37 -> left, 38 -> up, 39 -> right, 40 -> down, 87 -> W, 65 -> A 83 -> S, 68 -> D
 	private static double prevTime = System.currentTimeMillis();
 	private static short pr = 0;
 	public static double energy2x = 50;
@@ -291,7 +291,10 @@ public class Game {
 				break;
 			case 'C':
 				Draw(x, y, 'P', true);
-				endGame();
+				playerLife--;
+				if(playerLife==0) {
+					endGame();
+				}
 				break;
 			default:
 				Draw(x, y, 'P', true);
@@ -333,6 +336,8 @@ public class Game {
 	public static void printStat() {
 		print(0, String.format("P.Energy: %s     ", Integer.toString((int) energy2x)));
 		print(1, String.format("P.Score: %s    ", Points.getPlayer()));
-		print(5, String.format("Time: %s", Integer.toString((int) Time)));
+		print(2, String.format("P.Life: %s", playerLife));
+		print(4, String.format("C.Score: %s", Points.getComputer()));
+		print(6, String.format("Time: %s", Integer.toString((int) Time)));
 	}
 }
