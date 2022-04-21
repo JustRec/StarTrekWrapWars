@@ -10,13 +10,13 @@ public class ItemQueue {
 
 	private static char randItem() {
 		a = rand.nextInt(40);
-		if (a == 30) {
+		if (a == 39) {
 			return '*';
 		}
-		if (a > 15) {
+		if (a > 36) {
 			return '=';
 		}
-		if (a == a) {
+		if (a > 34) {
 			return 'C';
 		}
 		if (a > 30) {

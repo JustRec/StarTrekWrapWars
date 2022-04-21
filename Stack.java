@@ -20,7 +20,6 @@ public class Stack {
 
 	Object pop() {
 		if (isEmpty()) {
-			System.out.println("Stack is empty");
 			return null;
 		} else {
 			Object retData = elements[top];
