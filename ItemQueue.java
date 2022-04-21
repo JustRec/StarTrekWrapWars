@@ -29,11 +29,13 @@ public class ItemQueue {
 		}
 		iq.enqueue(randItem());
 	}
-	static void writeFirstTimeQueue(char map[][], EnigmaWrapper wrapper) {
-		Player player = new Player(wrapper);
+	static void writeFirstTimeQueue(char map[][], EnigmaWrapper wrapper, Player player, Robot[] robots, int robot_counter) {
 		for(int x = 0; x < 20; x++) {
 			char temp = randItem();
 			player.addCharacter(map, getColor(temp), Character.toString(temp));
+			if(temp == '4' || temp == '5' || temp == 'C'){
+				robots[robot_counter++] = new Robot(map, temp);
+			}
 		}
 	}
 	static Color getColor(char input) {
