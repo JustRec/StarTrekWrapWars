@@ -8,7 +8,7 @@ public class Robot {
     private Stack route;
     private int[] current_location = new int[2];
     private int[] target = new int[2];
-    private static RouteFinding rf;
+    private RouteFinding rf;
 
     public Robot(char[][] map, char c){
     	rf = new RouteFinding(map);
