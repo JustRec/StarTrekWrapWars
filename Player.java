@@ -18,6 +18,16 @@ public class Player {
         while (true)
             if (map[y][x] == ' ') {
                 Enigma.getConsole().getTextWindow().setCursorPosition(x, y);
+                if(str.equals("4") || str.equals("5") || str.equals("C")){
+                    Game.new_robot_location[0] = y;
+                    Game.new_robot_location[1] = x;
+                }
+                if(str.equals("=")){
+                    Game.devices.addDevice('=', y, x);
+                }
+                if(str.equals("*")){
+                    Game.devices.addDevice('*', y, x);
+                }
                 wrapper.printInColor(Color.orange, color, str);
                 map[y][x] = str.charAt(0);
                 if (str.equalsIgnoreCase("P")) {
