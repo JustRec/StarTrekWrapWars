@@ -2,7 +2,7 @@ public class Points {
     private static int player = 0;
     private static int computer = 0;
 
-    public static  void addScore(char c, String team){
+    public static void addScore(char c, String team) {
         switch (c) {
             case '=':
                 computer += 300;
@@ -11,42 +11,37 @@ public class Points {
                 computer += 300;
                 break;
             case '1':
-                if(team.equals("computer")){
+                if (team.equals("computer")) {
                     computer += 2;
-                }
-                else{
+                } else {
                     player += 1;
                 }
                 break;
             case '2':
-                if(team.equals("computer")){
+                if (team.equals("computer")) {
                     computer += 10;
-                }
-                else{
+                } else {
                     player += 5;
                 }
                 break;
             case '3':
-                if(team.equals("computer")){
+                if (team.equals("computer")) {
                     computer += 30;
-                }
-                else{
+                } else {
                     player += 15;
                 }
                 break;
             case '4':
-                if(team.equals("computer")){
+                if (team.equals("computer")) {
                     computer += 100;
-                }
-                else{
+                } else {
                     player += 50;
                 }
                 break;
             case '5':
-                if(team.equals("computer")){
+                if (team.equals("computer")) {
                     computer += 300;
-                }
-                else{
+                } else {
                     player += 150;
                 }
                 break;
@@ -55,11 +50,6 @@ public class Points {
                 break;
         }
     }
-
-
-
-
-
 
     public static int getPlayer() {
         return player;

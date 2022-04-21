@@ -4,25 +4,23 @@ public class Device {
     private int y;
     private boolean is_alive = true;
 
-    public Device(int x, int y){
+    public Device(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-
-    public void passTime(){
-        if(time != 0){
+    public void passTime() {
+        if (time != 0) {
             time--;
         }
-        if(time == 10){
-            time --;
-        }
-        else if(time == 0){
+        if (time == 10) {
+            time--;
+        } else if (time == 0) {
             is_alive = false;
             char[][] map = Game.getMap();
             map[x][y] = ' ';
             Game.setMap(map);
-            Game.cn.getTextWindow().setCursorPosition(y,x);
+            Game.cn.getTextWindow().setCursorPosition(y, x);
             System.out.print(" ");
         }
     }

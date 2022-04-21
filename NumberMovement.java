@@ -20,17 +20,17 @@ public class NumberMovement {
             }
             Random rand = new Random();
             int cursorx, cursory, way;
-            
+
             for (int i = 0; i < map.length; i++) {
                 for (int j = 0; j < map[0].length; j++) {
                     switch (map[i][j]) {
                         case '4':
                             while (true) {
                                 if (wayregister[i][j] == 1) {
-                                    if (temp[i-1][j] == ' ') {
-                                        wayregister[i-1][j] = 1;
+                                    if (temp[i - 1][j] == ' ') {
+                                        wayregister[i - 1][j] = 1;
                                         temp[i][j] = ' ';
-                                        temp[i-1][j] = '4';
+                                        temp[i - 1][j] = '4';
                                         cursorx = cn.getTextWindow().getCursorX();
                                         cursory = cn.getTextWindow().getCursorY();
                                         cn.getTextWindow().setCursorPosition(j, i);
@@ -39,16 +39,14 @@ public class NumberMovement {
                                         wp.printInColor(Color.ORANGE, Color.MAGENTA, "4");
                                         cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                         break;
-                                    }
-                                    else {
+                                    } else {
                                         wayregister[i][j] = 0;
                                     }
-                                }
-                                else if (wayregister[i][j] == 2) {
-                                    if (temp[i+1][j] == ' ') {
-                                        wayregister[i+1][j] = 2;
+                                } else if (wayregister[i][j] == 2) {
+                                    if (temp[i + 1][j] == ' ') {
+                                        wayregister[i + 1][j] = 2;
                                         temp[i][j] = ' ';
-                                        temp[i+1][j] = '4';
+                                        temp[i + 1][j] = '4';
                                         cursorx = cn.getTextWindow().getCursorX();
                                         cursory = cn.getTextWindow().getCursorY();
                                         cn.getTextWindow().setCursorPosition(j, i);
@@ -57,16 +55,14 @@ public class NumberMovement {
                                         wp.printInColor(Color.ORANGE, Color.MAGENTA, "4");
                                         cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                         break;
-                                    }
-                                    else {
+                                    } else {
                                         wayregister[i][j] = 0;
                                     }
-                                }
-                                else if (wayregister[i][j] == 3) {
-                                    if (temp[i][j-1] == ' ') {
-                                        wayregister[i][j-1] = 3;
+                                } else if (wayregister[i][j] == 3) {
+                                    if (temp[i][j - 1] == ' ') {
+                                        wayregister[i][j - 1] = 3;
                                         temp[i][j] = ' ';
-                                        temp[i][j-1] = '4';
+                                        temp[i][j - 1] = '4';
                                         cursorx = cn.getTextWindow().getCursorX();
                                         cursory = cn.getTextWindow().getCursorY();
                                         cn.getTextWindow().setCursorPosition(j, i);
@@ -75,16 +71,14 @@ public class NumberMovement {
                                         wp.printInColor(Color.ORANGE, Color.MAGENTA, "4");
                                         cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                         break;
-                                    }
-                                    else {
+                                    } else {
                                         wayregister[i][j] = 0;
                                     }
-                                }
-                                else if (wayregister[i][j] == 4) {
-                                    if (temp[i][j+1] == ' ') {
-                                        wayregister[i][j+1] = 4;
+                                } else if (wayregister[i][j] == 4) {
+                                    if (temp[i][j + 1] == ' ') {
+                                        wayregister[i][j + 1] = 4;
                                         temp[i][j] = ' ';
-                                        temp[i][j+1] = '4';
+                                        temp[i][j + 1] = '4';
                                         cursorx = cn.getTextWindow().getCursorX();
                                         cursory = cn.getTextWindow().getCursorY();
                                         cn.getTextWindow().setCursorPosition(j, i);
@@ -93,19 +87,17 @@ public class NumberMovement {
                                         wp.printInColor(Color.ORANGE, Color.MAGENTA, "4");
                                         cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                         break;
-                                    }
-                                    else {
+                                    } else {
                                         wayregister[i][j] = 0;
                                     }
-                                }
-                                else if (wayregister[i][j] == 0) {
+                                } else if (wayregister[i][j] == 0) {
                                     way = rand.nextInt(1, 5);
                                     switch (way) {
                                         case 1:
-                                            if (temp[i-1][j] == ' ') {
-                                                wayregister[i-1][j] = 1;
+                                            if (temp[i - 1][j] == ' ') {
+                                                wayregister[i - 1][j] = 1;
                                                 temp[i][j] = ' ';
-                                                temp[i-1][j] = '4';
+                                                temp[i - 1][j] = '4';
                                                 cursorx = cn.getTextWindow().getCursorX();
                                                 cursory = cn.getTextWindow().getCursorY();
                                                 cn.getTextWindow().setCursorPosition(j, i);
@@ -114,13 +106,13 @@ public class NumberMovement {
                                                 wp.printInColor(Color.ORANGE, Color.MAGENTA, "4");
                                                 cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                                 break;
-                                            }
-                                            else continue;
+                                            } else
+                                                continue;
                                         case 2:
-                                            if (temp[i+1][j] == ' ') {
-                                                wayregister[i+1][j] = 2;
+                                            if (temp[i + 1][j] == ' ') {
+                                                wayregister[i + 1][j] = 2;
                                                 temp[i][j] = ' ';
-                                                temp[i+1][j] = '4';
+                                                temp[i + 1][j] = '4';
                                                 cursorx = cn.getTextWindow().getCursorX();
                                                 cursory = cn.getTextWindow().getCursorY();
                                                 cn.getTextWindow().setCursorPosition(j, i);
@@ -129,13 +121,13 @@ public class NumberMovement {
                                                 wp.printInColor(Color.ORANGE, Color.MAGENTA, "4");
                                                 cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                                 break;
-                                            }
-                                            else continue;
+                                            } else
+                                                continue;
                                         case 3:
-                                            if (temp[i][j-1] == ' ') {
-                                                wayregister[i][j-1] = 3;
+                                            if (temp[i][j - 1] == ' ') {
+                                                wayregister[i][j - 1] = 3;
                                                 temp[i][j] = ' ';
-                                                temp[i][j-1] = '4';
+                                                temp[i][j - 1] = '4';
                                                 cursorx = cn.getTextWindow().getCursorX();
                                                 cursory = cn.getTextWindow().getCursorY();
                                                 cn.getTextWindow().setCursorPosition(j, i);
@@ -144,13 +136,13 @@ public class NumberMovement {
                                                 wp.printInColor(Color.ORANGE, Color.MAGENTA, "4");
                                                 cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                                 break;
-                                            }
-                                            else continue;
+                                            } else
+                                                continue;
                                         case 4:
-                                            if (temp[i][j+1] == ' ') {
-                                                wayregister[i][j+1] = 4;
+                                            if (temp[i][j + 1] == ' ') {
+                                                wayregister[i][j + 1] = 4;
                                                 temp[i][j] = ' ';
-                                                temp[i][j+1] = '4';
+                                                temp[i][j + 1] = '4';
                                                 cursorx = cn.getTextWindow().getCursorX();
                                                 cursory = cn.getTextWindow().getCursorY();
                                                 cn.getTextWindow().setCursorPosition(j, i);
@@ -159,20 +151,20 @@ public class NumberMovement {
                                                 wp.printInColor(Color.ORANGE, Color.MAGENTA, "4");
                                                 cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                                 break;
-                                            }
-                                            else continue;
+                                            } else
+                                                continue;
                                     }
-                                    break;  
+                                    break;
                                 }
                             }
                             break;
                         case '5':
                             while (true) {
                                 if (wayregister[i][j] == 1) {
-                                    if (temp[i-1][j] == ' ') {
-                                        wayregister[i-1][j] = 1;
+                                    if (temp[i - 1][j] == ' ') {
+                                        wayregister[i - 1][j] = 1;
                                         temp[i][j] = ' ';
-                                        temp[i-1][j] = '5';
+                                        temp[i - 1][j] = '5';
                                         cursorx = cn.getTextWindow().getCursorX();
                                         cursory = cn.getTextWindow().getCursorY();
                                         cn.getTextWindow().setCursorPosition(j, i);
@@ -181,16 +173,14 @@ public class NumberMovement {
                                         wp.printInColor(Color.ORANGE, Color.MAGENTA, "5");
                                         cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                         break;
-                                    }
-                                    else {
+                                    } else {
                                         wayregister[i][j] = 0;
                                     }
-                                }
-                                else if (wayregister[i][j] == 2) {
-                                    if (temp[i+1][j] == ' ') {
-                                        wayregister[i+1][j] = 2;
+                                } else if (wayregister[i][j] == 2) {
+                                    if (temp[i + 1][j] == ' ') {
+                                        wayregister[i + 1][j] = 2;
                                         temp[i][j] = ' ';
-                                        temp[i+1][j] = '5';
+                                        temp[i + 1][j] = '5';
                                         cursorx = cn.getTextWindow().getCursorX();
                                         cursory = cn.getTextWindow().getCursorY();
                                         cn.getTextWindow().setCursorPosition(j, i);
@@ -199,16 +189,14 @@ public class NumberMovement {
                                         wp.printInColor(Color.ORANGE, Color.MAGENTA, "5");
                                         cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                         break;
-                                    }
-                                    else {
+                                    } else {
                                         wayregister[i][j] = 0;
                                     }
-                                }
-                                else if (wayregister[i][j] == 3) {
-                                    if (temp[i][j-1] == ' ') {
-                                        wayregister[i][j-1] = 3;
+                                } else if (wayregister[i][j] == 3) {
+                                    if (temp[i][j - 1] == ' ') {
+                                        wayregister[i][j - 1] = 3;
                                         temp[i][j] = ' ';
-                                        temp[i][j-1] = '5';
+                                        temp[i][j - 1] = '5';
                                         cursorx = cn.getTextWindow().getCursorX();
                                         cursory = cn.getTextWindow().getCursorY();
                                         cn.getTextWindow().setCursorPosition(j, i);
@@ -217,16 +205,14 @@ public class NumberMovement {
                                         wp.printInColor(Color.ORANGE, Color.MAGENTA, "5");
                                         cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                         break;
-                                    }
-                                    else {
+                                    } else {
                                         wayregister[i][j] = 0;
                                     }
-                                }
-                                else if (wayregister[i][j] == 4) {
-                                    if (temp[i][j+1] == ' ') {
-                                        wayregister[i][j+1] = 4;
+                                } else if (wayregister[i][j] == 4) {
+                                    if (temp[i][j + 1] == ' ') {
+                                        wayregister[i][j + 1] = 4;
                                         temp[i][j] = ' ';
-                                        temp[i][j+1] = '5';
+                                        temp[i][j + 1] = '5';
                                         cursorx = cn.getTextWindow().getCursorX();
                                         cursory = cn.getTextWindow().getCursorY();
                                         cn.getTextWindow().setCursorPosition(j, i);
@@ -235,19 +221,17 @@ public class NumberMovement {
                                         wp.printInColor(Color.ORANGE, Color.MAGENTA, "5");
                                         cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                         break;
-                                    }
-                                    else {
+                                    } else {
                                         wayregister[i][j] = 0;
                                     }
-                                }
-                                else if (wayregister[i][j] == 0) {
+                                } else if (wayregister[i][j] == 0) {
                                     way = rand.nextInt(1, 5);
                                     switch (way) {
                                         case 1:
-                                            if (temp[i-1][j] == ' ') {
-                                                wayregister[i-1][j] = 1;
+                                            if (temp[i - 1][j] == ' ') {
+                                                wayregister[i - 1][j] = 1;
                                                 temp[i][j] = ' ';
-                                                temp[i-1][j] = '5';
+                                                temp[i - 1][j] = '5';
                                                 cursorx = cn.getTextWindow().getCursorX();
                                                 cursory = cn.getTextWindow().getCursorY();
                                                 cn.getTextWindow().setCursorPosition(j, i);
@@ -256,13 +240,13 @@ public class NumberMovement {
                                                 wp.printInColor(Color.ORANGE, Color.MAGENTA, "5");
                                                 cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                                 break;
-                                            }
-                                            else continue;
+                                            } else
+                                                continue;
                                         case 2:
-                                            if (temp[i+1][j] == ' ') {
-                                                wayregister[i+1][j] = 2;
+                                            if (temp[i + 1][j] == ' ') {
+                                                wayregister[i + 1][j] = 2;
                                                 temp[i][j] = ' ';
-                                                temp[i+1][j] = '5';
+                                                temp[i + 1][j] = '5';
                                                 cursorx = cn.getTextWindow().getCursorX();
                                                 cursory = cn.getTextWindow().getCursorY();
                                                 cn.getTextWindow().setCursorPosition(j, i);
@@ -271,13 +255,13 @@ public class NumberMovement {
                                                 wp.printInColor(Color.ORANGE, Color.MAGENTA, "5");
                                                 cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                                 break;
-                                            }
-                                            else continue;
+                                            } else
+                                                continue;
                                         case 3:
-                                            if (temp[i][j-1] == ' ') {
-                                                wayregister[i][j-1] = 3;
+                                            if (temp[i][j - 1] == ' ') {
+                                                wayregister[i][j - 1] = 3;
                                                 temp[i][j] = ' ';
-                                                temp[i][j-1] = '5';
+                                                temp[i][j - 1] = '5';
                                                 cursorx = cn.getTextWindow().getCursorX();
                                                 cursory = cn.getTextWindow().getCursorY();
                                                 cn.getTextWindow().setCursorPosition(j, i);
@@ -286,13 +270,13 @@ public class NumberMovement {
                                                 wp.printInColor(Color.ORANGE, Color.MAGENTA, "5");
                                                 cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                                 break;
-                                            }
-                                            else continue;
+                                            } else
+                                                continue;
                                         case 4:
-                                            if (temp[i][j+1] == ' ') {
-                                                wayregister[i][j+1] = 4;
+                                            if (temp[i][j + 1] == ' ') {
+                                                wayregister[i][j + 1] = 4;
                                                 temp[i][j] = ' ';
-                                                temp[i][j+1] = '5';
+                                                temp[i][j + 1] = '5';
                                                 cursorx = cn.getTextWindow().getCursorX();
                                                 cursory = cn.getTextWindow().getCursorY();
                                                 cn.getTextWindow().setCursorPosition(j, i);
@@ -301,13 +285,13 @@ public class NumberMovement {
                                                 wp.printInColor(Color.ORANGE, Color.MAGENTA, "5");
                                                 cn.getTextWindow().setCursorPosition(cursorx, cursory);
                                                 break;
-                                            }
-                                            else continue;
+                                            } else
+                                                continue;
                                     }
                                     break;
                                 }
                             }
-                        break;
+                            break;
                     }
                 }
             }

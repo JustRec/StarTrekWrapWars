@@ -1,6 +1,6 @@
 
 public class CircularQueue {
-    private int rear,front;
+    private int rear, front;
     private Object[] elements;
 
     CircularQueue(int capacity) {
@@ -17,42 +17,44 @@ public class CircularQueue {
             elements[rear] = data;
         }
     }
+
     Object dequeue() {
         if (isEmpty()) {
             System.out.println("Queue is empty");
             return null;
-        }
-        else {
+        } else {
             Object retData = elements[front];
             elements[front] = null;
             front = (front + 1) % elements.length;
             return retData;
         }
     }
+
     Object peek() {
         if (isEmpty()) {
             System.out.println("Queue is empty");
             return null;
-        }
-        else 
+        } else
             return elements[front];
     }
+
     boolean isEmpty() {
         return elements[front] == null;
     }
+
     boolean isFull() {
         return (front == (rear + 1) % elements.length &&
-        elements[front] != null &&
-        elements[rear] != null);
+                elements[front] != null &&
+                elements[rear] != null);
     }
+
     int size() {
         if (elements[front] == null) {
             return 0;
-        }
-        else {
+        } else {
             if (rear >= front)
                 return rear - front + 1;
-            else 
+            else
                 return elements.length - (front - rear) + 1;
         }
     }
