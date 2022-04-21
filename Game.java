@@ -15,6 +15,7 @@ public class Game {
 	public static double Time = 0;
 	private static boolean game = true;
 	private static boolean debug = true;
+	private static boolean is_updated = false;
 	public static int[] new_robot_location = new int[2];
 	private static Robot[] robots = new Robot[50];
 	public static Devices devices = new Devices();
@@ -40,6 +41,7 @@ public class Game {
         	//Player and Bot(same as !energy2x) (energy2x)
         	if(energy2x != 0 && System.currentTimeMillis() - prevTime > 250) {
 				Time += 0.25; timecount += 0.25;
+				is_updated = false;
 				energy2x -= 0.25;
         		Player();
         		if(eUsed) {
@@ -54,14 +56,16 @@ public class Game {
         	else if(System.currentTimeMillis() - prevTime > 500) {
         		if(eUsed == true) {eUsed = false;}
         		Time += 0.5; timecount += 0.5;
+				is_updated = false;
         		Player();
         		Bot();
         		printStat();
         	}
         	
         	//Devices - every 1 second
-        	if(timecount == 1 || timecount == 2) {
+        	if((timecount == 1 || timecount == 2) && !is_updated) {
         		updateDevice();
+				is_updated = true;
         	}
         	
         	//ItemQueue (+Devices) - every 3 seconds
@@ -69,7 +73,6 @@ public class Game {
         		timecount = 0;
         		
         		updateDevice();
-        		
 				char item = ItemQueue.getFirstItemWithoutDequeue();
 				player.addCharacter(map, ItemQueue.getColor(ItemQueue.getItem()), Character.toString(item));
 				ItemQueue.writeItemQueue(cn);
@@ -163,6 +166,7 @@ public class Game {
 	}
 
 	private static void updateDevice(){
+		
 		for (int i = 0; i < device.length; i++) {
 			if(device[i] != null){
 				if(device[i].getIs_alive()){

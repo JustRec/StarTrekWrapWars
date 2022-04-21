@@ -1,5 +1,5 @@
 public class Device {
-    private int time = 24;
+    private int time = 26;
     private int x;
     private int y;
     private boolean is_alive = true;
@@ -11,9 +11,13 @@ public class Device {
 
 
     public void passTime(){
-        if(time != 0)
+        if(time != 0){
             time--;
-        else{
+        }
+        if(time == 10){
+            time --;
+        }
+        else if(time == 0){
             is_alive = false;
             char[][] map = Game.getMap();
             map[x][y] = ' ';
