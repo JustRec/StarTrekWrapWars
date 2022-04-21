@@ -304,6 +304,7 @@ public class Game {
 
 	private static void endGame() {
 		print(7, "You Lost");
+		print(8, String.format("Your end-game score is: %s",Points.getPlayer()-Points.getComputer() ));
 		game = false;
 	}
 
