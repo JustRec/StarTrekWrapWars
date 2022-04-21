@@ -4,6 +4,7 @@ public class Robot {
     private boolean is_alive = true;
     private boolean has_a_target = false;
     private boolean is_pressed_trap = false;
+    private boolean is_target_dynamic = false;
     private Stack route;
     private int[] current_location = new int[2];
     private int[] target = new int[2];
@@ -68,8 +69,9 @@ public class Robot {
                 pathFinding();
             }
         }
-        
-        
+        if(is_target_dynamic){
+            pathFinding();
+        }
     }
     public void Steal(){
         char[][] map = Game.getMap();
@@ -97,8 +99,61 @@ public class Robot {
     }
 
     public void targetSelection(){
+        /*
         target[0] = 2;
         target[1] = 15;
+        */
+        char[][] map = Game.getMap();
+        char currentSelection=' ';
+        int target0=0;
+        int target1=0;
+        double treasureValue=0;
+        double travelTime=0;
+        double targetValue=0;
+        double bestValue=0;
+        char current = ' ';
+
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[1].length; j++) {
+                treasureValue=0;
+                travelTime=0;
+                currentSelection=map[i][j];
+
+                switch(currentSelection) {
+
+                case '1':
+                    treasureValue=2;
+                case '2':
+                    treasureValue=10;
+                case '3':
+                    treasureValue=30;
+                case '4':
+                    treasureValue=100;
+                case '5':
+                    treasureValue=300;
+                case 'P':
+                    treasureValue=450;
+                }
+
+                //     Treasure Value / Time it takes to get there (in seconds) = Target value (Points gained per second)
+
+                travelTime=Math.abs((current_location[0]-i))+Math.abs((current_location[1]-j));
+                targetValue=treasureValue/travelTime;
+
+                if(targetValue>bestValue) {
+                    bestValue=targetValue;
+                    target0=i;
+                    target1=j;
+                    current = currentSelection;
+                }
+            }
+        }
+        if(current == '4' || current == '5' || current == 'P'){
+            is_target_dynamic=true;
+        }
+        target[0] = target0;
+        target[1] = target1;
+
     }
 
     public boolean getIsAlive() {
