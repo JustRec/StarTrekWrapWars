@@ -8,6 +8,7 @@ public class Robot {
     private Stack route;
     private int[] current_location = new int[2];
     private int[] target = new int[2];
+    private int chaser_counter = 0;
     private RouteFinding rf;
 
     public Robot(char[][] map, char c){
@@ -70,7 +71,11 @@ public class Robot {
             }
         }
         if(is_target_dynamic){
-            pathFinding();
+            chaser_counter++;
+            if(chaser_counter > 20){
+                pathFinding();
+                chaser_counter = 0;
+            }
         }
     }
     public void Steal(){
@@ -140,7 +145,7 @@ public class Robot {
                 //     Treasure Value / Time it takes to get there (in seconds) = Target value (Points gained per second)
 
                 travelTime=Math.abs((current_location[0]-i))+Math.abs((current_location[1]-j));
-                targetValue=treasureValue/travelTime;
+                targetValue=treasureValue/(travelTime * 2);
 
                 if(targetValue>bestValue) {
                     bestValue=targetValue;
