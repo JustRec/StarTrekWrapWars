@@ -10,7 +10,7 @@ public class Game {
 	private static int keyPattern[] = new int[10]; // 37 -> left, 38 -> up, 39 -> right, 40 -> down, 87 -> W, 65 -> A, 83 -> S, 68 -> D
 	private static double prevTime = System.currentTimeMillis();
 	private static short pr = 0;
-	public static double energy2x = 0;
+	public static double energy2x = 50;
 	public static int Score = 0;
 	public static double Time = 0;
 	private static boolean game = true;
@@ -51,17 +51,29 @@ public class Game {
         			eUsed = false;
         		}
         		else {eUsed = true;}
+
         		printStat();
+
+				map = TrapDevices.isTrapped(map);
+				map = TrapDevices.timeForTrap(map, 0.25);
+				map = NumberMovement.randomMovement(map, 0.25, wrapper);
+
         	}
         	
         	// !energy2x
         	else if(System.currentTimeMillis() - prevTime > 500) {
-        		if(eUsed == true) {eUsed = false;}
-        		Time += 0.5; timecount += 0.5;
-				is_updated = false;
+        		if(eUsed == true) {
+					eUsed = false;
+				}
+        		Time += 0.5;
+            is_updated = false;
+				timecount += 0.5;
         		Player();
         		Bot();
-        		printStat();
+            printStat();
+				map = TrapDevices.isTrapped(map);
+				map = TrapDevices.timeForTrap(map, 0.5);
+				map = NumberMovement.randomMovement(map, 0.5, wrapper);
         	}
         	
         	//Devices - every 1 second
@@ -123,19 +135,38 @@ public class Game {
 		if (action == 40 && Player.Py < map.length - 1 && retCol(0,1) != '#') {
 			PlayerMove(0,1);
 			}
-		if (action == 87 && retCol(0,1) == ' ') {
-			PlayerThrow(0,-1);
+		if (action == 87 && !(Backpack.isEmpty())) {
+			if(retCol(0,-1) == ' ' && (Backpack.peekItem().toString().charAt(0)=='*'||Backpack.peekItem().toString().charAt(0)=='=')) {	
+				PlayerThrow(0,-1);
 			}
-		if (action == 83 && retCol(0,1) == ' ') {
-			PlayerThrow(0,1);
+			else if(Backpack.peekItem().toString().charAt(0)!='*'&& Backpack.peekItem().toString().charAt(0)!='='){
+				PlayerThrow(0,-1);
+			}	
 			}
-		if (action == 65 && retCol(0,1) == ' ') {
-			PlayerThrow(-1,0);
+		if (action == 83 && !(Backpack.isEmpty())) {
+			if(retCol(0,1) == ' ' && (Backpack.peekItem().toString().charAt(0)=='*'||Backpack.peekItem().toString().charAt(0)=='=')) {	
+				PlayerThrow(0,1);
 			}
-		if (action == 68 && retCol(0,1) == ' ') {
-			PlayerThrow(1,0);
+			else if(Backpack.peekItem().toString().charAt(0)!='*'&& Backpack.peekItem().toString().charAt(0)!='='){
+				PlayerThrow(0,1);
+			}	
 			}
-	
+		if (action == 65 && !(Backpack.isEmpty())) {
+			if(retCol(-1,0) == ' ' && (Backpack.peekItem().toString().charAt(0)=='*'||Backpack.peekItem().toString().charAt(0)=='=')) {	
+				PlayerThrow(-1,0);
+			}
+			else if(Backpack.peekItem().toString().charAt(0)!='*'&& Backpack.peekItem().toString().charAt(0)!='='){
+				PlayerThrow(-1,0);
+			}				
+			}
+		if (action == 68 && !(Backpack.isEmpty())) {
+			if(retCol(1,0) == ' ' && (Backpack.peekItem().toString().charAt(0)=='*'||Backpack.peekItem().toString().charAt(0)=='=')) {	
+				PlayerThrow(1,0);
+			}
+			else if(Backpack.peekItem().toString().charAt(0)!='*'&& Backpack.peekItem().toString().charAt(0)!='='){
+				PlayerThrow(1,0);
+			}	
+			}
 	}
 	
 	private static void Player() {
@@ -204,6 +235,7 @@ public class Game {
 	private static void PlayerMove(int x, int y) {	
 		char col = retCol(x,y);
 		
+
 				
 			switch(col) {
 		case '1':
