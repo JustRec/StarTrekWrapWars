@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.Random;
 
 public class Robot {
     private boolean is_alive = true;
@@ -9,7 +10,9 @@ public class Robot {
     private int[] current_location = new int[2];
     private int[] target = new int[2];
     private int chaser_counter = 0;
+    private int escape_stuck = 0;
     private RouteFinding rf;
+    private Random random = new Random();
 
     public Robot(char[][] map, char c){
     	rf = new RouteFinding(map);
@@ -61,9 +64,18 @@ public class Robot {
 
                             Steal();
                             route.pop();//Discard the current move
+                            break;
+                    }
+                    else{
+                        if(escape_stuck > random.nextInt(1,4)){
+                            pathFinding(); //TODO: Add a random movement here instead of pf
+                            escape_stuck = 0;
                         }
-                        break;
+                        escape_stuck++;
+                        
+                    }
                 }
+                Game.setMap(map);
             }
             else{
                 has_a_target = false;
@@ -72,7 +84,7 @@ public class Robot {
         }
         if(is_target_dynamic){
             chaser_counter++;
-            if(chaser_counter > 20){
+            if(chaser_counter > 30){
                 pathFinding();
                 chaser_counter = 0;
             }
