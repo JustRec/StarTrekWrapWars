@@ -45,6 +45,7 @@ public class RouteFinding {
     
 
     private boolean recursiveRoute(int x, int y){
+        route = new Stack(map.length * map[0].length);
         if (x == end_x && y == end_y) return true; //Reaching end
         if(map[x][y] == '#' || is_crossed[x][y]) return false; //Reaching a wall or an already crossed place
         
