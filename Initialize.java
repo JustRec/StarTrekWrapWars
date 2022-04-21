@@ -48,7 +48,6 @@ public class Initialize {
 		}
 		Backpack.printBackpack();
 		boolean energy2x = false;
-		ItemQueue.writeFirstTimeQueue(map, wrapper);
 		player.addCharacter(map, Color.cyan, "P");
 		ItemQueue.writeItemQueue(cn);
 		
