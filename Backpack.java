@@ -47,7 +47,7 @@ public class Backpack {
 				printBackpack();
 				return ret;
 				}
-			return null;
+			return 'N';
 		}
 
 		static boolean isFull() {

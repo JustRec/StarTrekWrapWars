@@ -83,7 +83,9 @@ public class Robot {
                 if(map[i][j] == 'P'){
                     for (int k = 0; k < 2; k++) {
                         char item = (char) Backpack.removeItem();
-                        Points.addScore(item, "computer");
+                        if(item == 'N'){
+                            Points.addScore(item, "computer");
+                        }                        
                     }
                 }
             }
