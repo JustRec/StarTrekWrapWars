@@ -247,32 +247,34 @@ public class Game {
 		char col = retCol(x, y);
 
 		switch (col) {
-			case '1':
-				Score += 1;
+			case '1':		
+				Points.addScore('1', "player");
 				Draw(x, y, 'P', true);
 				break;
 			case '2':
-				Score += 5;
-				if (energy2x < 30) {
-					energy2x = 30;
+				if (!Backpack.isFull()) {
+					Points.addScore('2', "player");
+					Backpack.takeItem('2');
+					Draw(x, y, 'P', true);
 				}
-				Draw(x, y, 'P', true);
 				break;
 			case '3':
 				if (!Backpack.isFull()) {
-					Score += 15;
+					Points.addScore('3', "player");
 					Backpack.takeItem('3');
 					Draw(x, y, 'P', true);
 				}
 				break;
 			case '4':
-				Score += 50;
-				energy2x = 240;
-				Draw(x, y, 'P', true);
+				if (!Backpack.isFull()) {
+					Points.addScore('4', "player");
+					Backpack.takeItem('4');
+					Draw(x, y, 'P', true);
+				}
 				break;
 			case '5':
 				if (!Backpack.isFull()) {
-					Score += 150;
+					Points.addScore('5', "player");
 					Backpack.takeItem('5');
 					Draw(x, y, 'P', true);
 				}
